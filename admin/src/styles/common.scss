@@ -1,0 +1,39 @@
+@import './colors.scss';
+html {
+  scroll-behavior: smooth;
+  font-size: 10px;
+}
+
+body {
+  margin: 0 auto;
+  font-family: 'salina trial';
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: $c-brown-700;
+  background-color: $c-white;
+  -webkit-font-smoothing: auto;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+#root {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+@media (max-width: 580px) {
+  body {
+    font-size: 1.5rem;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4rem;
+  padding: 0.5rem;
+}
