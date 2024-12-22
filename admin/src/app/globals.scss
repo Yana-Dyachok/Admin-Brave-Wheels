@@ -1,4 +1,4 @@
-@import '../styles/colors.scss';
-@import '../styles/colors.scss';
-@import '../styles/fonts.scss';
-@import '../styles/common.scss';
+@use '../styles/colors.scss' as colors;
+@use '../styles/colors.scss' as reset;
+@use '../styles/fonts.scss' as fonts;
+@use '../styles/common.scss'  as common;

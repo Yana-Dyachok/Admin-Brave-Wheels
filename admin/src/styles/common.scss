@@ -1,4 +1,4 @@
-@import './colors.scss';
+@use './colors.scss' as colors;
 html {
   scroll-behavior: smooth;
   font-size: 10px;
@@ -9,8 +9,8 @@ body {
   font-family: 'salina trial';
   font-size: 2.5rem;
   font-weight: 400;
-  color: $c-brown-700;
-  background-color: $c-white;
+  color: colors.$c-brown-700;
+  background-color: colors.$c-white;
   -webkit-font-smoothing: auto;
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
