@@ -1,0 +1,31 @@
+.payments {
+  display: flex;
+  gap: 2rem;
+}
+
+.paymentsIcon {
+  height: 3rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.paymentsApay {
+  width: 6.3rem;
+  background-image: url('../../../assets/icons/icon-apay.svg');
+}
+
+.paymentsGpay {
+  width: 7.5rem;
+  background-image: url('../../../assets/icons/icon-gpay.svg');
+}
+
+.paymentsVisa {
+  width: 3.8rem;
+  background-image: url('../../../assets/icons/icon-visa.svg');
+}
+
+.paymentsMC {
+  width: 4.8rem;
+  background-image: url('../../../assets/icons/icon-mc.svg');
+}

@@ -1,0 +1,94 @@
+@use '../../../styles/mixins.scss' as mixins;
+@use '../../../styles/colors.scss' as colors;
+
+.header {
+  max-width: 127.5rem;
+  position: relative;
+  padding: 4rem 0rem;
+  margin: 0 auto;
+}
+
+.headerInner {
+  display: grid;
+  grid-template-columns: 3.71fr 1.99fr 0.505fr;
+  align-items: center;
+  padding-left: 0.8rem;
+}
+
+.headerActions {
+  display: flex;
+  gap: 4.25rem;
+}
+
+.headerSearch {
+  position: absolute;
+  top: 16rem;
+  width: 100%;
+  max-width: 127.5rem;
+  translate: calc((100vw - 100%) / 2);
+}
+
+.navList {
+  display: flex;
+  gap: 4.1rem;
+  padding-top: 0.4rem;
+}
+
+.navLink {
+  font-size: 1.8rem;
+  font-weight: 600;
+
+  @include mixins.hoverFocus {
+    color: colors.$c-orange;
+  }
+
+  &.current {
+    color: colors.$c-orange;
+    border-bottom: 0.1rem solid colors.$c-orange;
+  }
+}
+
+.logo {
+  display: block;
+
+  &:focus {
+    border-bottom: none;
+  }
+}
+
+.icon {
+  &::before {
+    content: '';
+    display: block;
+    min-width: 2.9rem;
+    height: 2.9rem;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    background-color: colors.$c-brown-600;
+  }
+
+  @include mixins.hoverFocus {
+    &::before {
+      background-color: colors.$c-orange;
+    }
+  }
+
+  &:active {
+    &::before {
+      border-bottom: 0.1rem solid colors.$c-orange;
+    }
+  }
+}
+
+.iconSearch {
+  &::before {
+    mask-image: url('../../../assets/icons/icon-search.svg');
+  }
+}
+
+.iconCart {
+  &::before {
+    mask-image: url('../../../assets/icons/icon-cart.svg');
+  }
+}

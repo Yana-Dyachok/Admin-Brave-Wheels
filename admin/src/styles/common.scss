@@ -1,25 +1,22 @@
 @use './colors.scss' as colors;
+@use './fonts.scss' as fonts;
+@use './reset.scss';
+
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
   font-size: 10px;
 }
 
 body {
-  margin: 0 auto;
-  font-family: 'salina trial';
-  font-size: 2.5rem;
-  font-weight: 400;
-  color: colors.$c-brown-700;
-  background-color: colors.$c-white;
+  font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: auto;
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
-  overflow-x: hidden;
-}
-
-#root {
-  max-width: 1920px;
-  margin: 0 auto;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: colors.$c-brown-600;
+  background-color: colors.$c-white;
 }
 
 @media (max-width: 580px) {

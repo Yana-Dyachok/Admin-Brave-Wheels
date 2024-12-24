@@ -1,0 +1,14 @@
+.addressGroup {
+  &:not(:last-child) {
+    margin-bottom: 5.6rem;
+  }
+}
+
+.addressLink {
+  font-size: 2.4rem;
+}
+
+.addressText {
+  padding-top: 1.3rem;
+  line-height: 1.9;
+}
