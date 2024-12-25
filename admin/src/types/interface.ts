@@ -25,3 +25,16 @@ export interface IBicycleData extends IBicycle {
 export interface IAllBicycles {
   bicycles: IBicycleData[];
 }
+
+export interface IChecked {
+  id: string;
+  checked: boolean;
+}
+
+export interface BicycleSetDataProps {
+  setBicycleData: React.Dispatch<React.SetStateAction<IBicycleData[]>>;
+}
+
+export interface BicycleDataProps extends BicycleSetDataProps {
+  bicycleData: IBicycleData[];
+}

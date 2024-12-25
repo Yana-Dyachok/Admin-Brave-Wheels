@@ -1,3 +1,6 @@
+@use '../../../styles/colors.scss' as colors;
+@use '../../../styles/mixins.scss' as mixins;
+
 .addressGroup {
   &:not(:last-child) {
     margin-bottom: 5.6rem;
@@ -6,6 +9,9 @@
 
 .addressLink {
   font-size: 2.4rem;
+  @include mixins.hoverFocus {
+    color: colors.$c-orange;
+  }
 }
 
 .addressText {

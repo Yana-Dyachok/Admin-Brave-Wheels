@@ -1,3 +1,4 @@
+@use './colors.scss' as colors;
 @mixin r($width) {
   @media (max-width: #{$width}px) {
     @content;
@@ -36,6 +37,32 @@
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       @content;
+    }
+  }
+}
+
+@mixin icon($w, $h) {
+  &::before {
+    content: '';
+    display: block;
+    min-width: $w;
+    height: $h;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    background-color: colors.$c-brown-600;
+  }
+
+  @include hoverFocus {
+    cursor: pointer;
+    &::before {
+      background-color: colors.$c-orange;
+    }
+  }
+
+  &:active {
+    &::before {
+      border-bottom: 0.1rem solid colors.$c-orange;
     }
   }
 }

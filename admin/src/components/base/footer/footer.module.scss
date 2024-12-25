@@ -1,4 +1,6 @@
 @use '../../../styles/colors.scss' as colors;
+@use '../../../styles/mixins.scss' as mixins;
+
 .footer {
   background-color: colors.$c-brown-700;
   padding: 0.9rem 0;
@@ -47,6 +49,9 @@
 
 .footerLink {
   font-size: 1.8rem;
+  @include mixins.hoverFocus {
+    color: colors.$c-orange;
+  }
 }
 
 .footerBottom {

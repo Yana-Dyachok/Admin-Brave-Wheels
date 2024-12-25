@@ -56,38 +56,15 @@
   }
 }
 
-.icon {
-  &::before {
-    content: '';
-    display: block;
-    min-width: 2.9rem;
-    height: 2.9rem;
-    mask-repeat: no-repeat;
-    mask-size: contain;
-    mask-position: center;
-    background-color: colors.$c-brown-600;
-  }
-
-  @include mixins.hoverFocus {
-    &::before {
-      background-color: colors.$c-orange;
-    }
-  }
-
-  &:active {
-    &::before {
-      border-bottom: 0.1rem solid colors.$c-orange;
-    }
-  }
-}
-
 .iconSearch {
+  @include mixins.icon(2.9rem, 2.9rem);
   &::before {
     mask-image: url('../../../assets/icons/icon-search.svg');
   }
 }
 
 .iconCart {
+  @include mixins.icon(2.9rem, 2.9rem);
   &::before {
     mask-image: url('../../../assets/icons/icon-cart.svg');
   }

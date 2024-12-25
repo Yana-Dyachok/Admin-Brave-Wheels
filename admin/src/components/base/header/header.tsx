@@ -37,11 +37,11 @@ const Header = () => {
         <div className={`${styles.headerActions}`}>
           <Link
             href="https://brave-wheels.netlify.app/catalog"
-            className={`${styles.icon} ${styles.iconSearch}`}
+            className={styles.iconSearch}
           ></Link>
           <Link
             href="https://brave-wheels.netlify.app/cart"
-            className={`${styles.icon} ${styles.iconCart}`}
+            className={styles.iconCart}
           ></Link>
         </div>
       </div>

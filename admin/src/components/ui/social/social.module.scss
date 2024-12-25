@@ -13,49 +13,31 @@
   height: 3rem;
   background-color: colors.$c-white;
   border-radius: 0.5rem;
-  &::before {
-    display: block;
-    content: '';
-    min-width: 2.15rem;
-    height: 2.15rem;
-    mask-repeat: no-repeat;
-    mask-size: contain;
-    mask-position: center;
-    background-color: colors.$c-brown-700;
-  }
-
-  @include mixins.hoverFocus {
-    &::before {
-      background-color: colors.$c-orange;
-    }
-  }
-
-  &:active {
-    &::before {
-      border-bottom: 0.1rem solid colors.$c-orange;
-    }
-  }
 }
 
 .socialLinkFaceBook {
+  @include mixins.icon(2.15rem, 2.15rem);
   &::before {
     mask-image: url('../../../assets/icons/icon-facebook.svg');
   }
 }
 
 .socialLinkInstagram {
+  @include mixins.icon(2.15rem, 2.15rem);
   &::before {
     mask-image: url('../../../assets/icons/icon-insta.svg');
   }
 }
 
 .socialLinkGoogle {
+  @include mixins.icon(2.15rem, 2.15rem);
   &::before {
     mask-image: url('../../../assets/icons/icon-gmail.svg');
   }
 }
 
 .socialLinkTelegram {
+  @include mixins.icon(2.15rem, 2.15rem);
   &::before {
     mask-image: url('../../../assets/icons/icon-telegram.svg');
   }

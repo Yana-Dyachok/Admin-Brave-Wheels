@@ -1,0 +1,22 @@
+@use '../../../styles/fonts.scss' as fonts;
+.adminMenu {
+  width: 100%;
+  padding: 1rem;
+}
+
+.adminMenuTitle {
+  text-align: center;
+  font-family: 'Oswald';
+  font-size: 6rem;
+  font-weight: 500;
+}
+
+.adminMenuSubTitle {
+  font-size: 3.2rem;
+  font-weight: 600;
+}
+
+.adminMenuButtons {
+  display: flex;
+  gap: 2rem;
+}

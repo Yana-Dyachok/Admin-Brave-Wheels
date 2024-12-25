@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import ErrorBoundary from './error';
 import Header from '@/components/base/header/header';
 import Footer from '@/components/base/footer/footer';
+import StoreProvider from './StoreProvider';
 import './globals.scss';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -22,9 +23,11 @@ export default function RootLayout({
     <html lang="en">
       <ErrorBoundary>
         <body>
-          <Header />
-          {children}
-          <Footer />
+          <StoreProvider>
+            <Header />
+            {children}
+            <Footer />
+          </StoreProvider>
         </body>
       </ErrorBoundary>
     </html>
