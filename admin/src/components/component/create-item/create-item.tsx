@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import { IBicycle } from 'types/interface';
 import { FrameEnum } from 'types/enum';
 import { bicycleTypes, wheelSizes, materialTypes } from 'utils/const-form';
-import createBicycleAPI from 'app/api/post-api';
+import handleFormAction from './create-item-actions';
 import { initialStateBicycle } from 'utils/initial-state-bicycle';
+import Button from '@/components/ui/button/button';
 import styles from './create-item.module.scss';
 
 interface BicycleProps {
@@ -13,70 +14,17 @@ interface BicycleProps {
 }
 
 const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
-  const [bicycles, setBicycles] = useState<IBicycle>(
-    bicyclesPrimary || initialStateBicycle,
-  );
-
-  const handleFormAction = async (formData: FormData) => {
-    const files = formData.getAll('img') as File[];
-    const base64Images: string[] = [];
-    for (const file of files) {
-      const result = await new Promise<string | null>((resolve) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = () => resolve(null);
-        reader.readAsDataURL(file);
-      });
-
-      if (result) {
-        const base64String = result.split(',')[1];
-        base64Images.push(base64String);
-      }
-    }
-    const color = formData.get('color') as string;
-    if (color) {
-      const isValidHex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color);
-      if (!isValidHex) {
-        console.error('Invalid color format');
-        return;
-      }
-    }
-
-    const bicycle: IBicycle = {
-      name: formData.get('name') as string,
-      brand: formData.get('brand') as string,
-      price: Number(formData.get('price')),
-      weight: Number(formData.get('weight')),
-      quantity: Number(formData.get('quantity')),
-      guarantee: Number(formData.get('guarantee')),
-      bicycleType: bicycles.bicycleType || formData.get('bicycleType'),
-      materialType: bicycles.materialType || formData.get('materialType'),
-      frameType: bicycles.frameType || formData.get('frameType'),
-      color,
-      sale: formData.get('sale') === 'on',
-      description: (formData.get('description') as string) || 'No description',
-      wheelSize: Number(formData.get('wheelSize')),
-      brakeType: formData.get('brakeType') as string,
-      images: base64Images,
-    };
-
-    try {
-      const createdBicycle = await createBicycleAPI(bicycle);
-      setBicycles(createdBicycle);
-      console.log('Bicycle created successfully:', createdBicycle);
-    } catch (error) {
-      console.error('Error creating bicycle:', error);
-    }
-  };
+  const [bicycles] = useState<IBicycle>(bicyclesPrimary || initialStateBicycle);
 
   return (
     <form action={handleFormAction}>
       <div>
+        <p>Назва товару*</p>
         <input
           className={styles.input}
           type="text"
           name="name"
-          placeholder="Name"
+          defaultValue={bicyclesPrimary?.name}
           required
         />
         <input type="color" name="color" defaultValue="#000000" required />
@@ -84,35 +32,35 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
           className={styles.input}
           type="text"
           name="brand"
-          placeholder="Brand name"
+          defaultValue={bicyclesPrimary?.brand}
           required
         />
         <input
           className={styles.input}
           type="text"
           name="brakeType"
-          placeholder="Brake type"
+          defaultValue={bicyclesPrimary?.brakeType}
           required
         />
         <input
           className={styles.input}
           type="number"
           name="price"
-          placeholder="Price"
+          defaultValue={bicyclesPrimary?.price}
           required
         />
         <input
           className={styles.input}
           type="number"
           name="weight"
-          placeholder="Weight"
+          defaultValue={bicyclesPrimary?.weight}
           required
         />
         <input
           className={styles.input}
           type="number"
           name="quantity"
-          placeholder="Quantity"
+          defaultValue={bicyclesPrimary?.quantity}
           required
           min={1}
         />
@@ -120,37 +68,34 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
           className={styles.input}
           type="number"
           name="guarantee"
-          placeholder="Guarantee"
+          defaultValue={bicyclesPrimary?.guarantee}
           required
         />
       </div>
-      <div className="radio-input__block">
-        {bicycleTypes.map((type) => (
-          <div key={type.value}>
-            <input
-              type="radio"
-              name="bicycleType"
-              value={type.value}
-              checked={bicycles.bicycleType === type.value}
-              onChange={() =>
-                setBicycles({ ...bicycles, bicycleType: type.value })
-              }
-            />
-            <label htmlFor={type.value}>{type.label}</label>
-          </div>
-        ))}
+      <div className="select-input__block">
+        <p>Тип товару*</p>
+        <select
+          className={styles.inputSelect}
+          name="bicycleType"
+          defaultValue={bicycles.bicycleType}
+        >
+          {bicycleTypes.map((type) => (
+            <option key={type.value} value={type.value}>
+              {type.label}
+            </option>
+          ))}
+        </select>
       </div>
+
       <div className="radio-input__block">
         {wheelSizes.map((size) => (
           <div className="radio-input__item" key={size.value}>
             <input
+              className={styles.inputRadio}
               type="radio"
               name="wheelSize"
               value={String(size.value)}
-              checked={String(bicycles.wheelSize) === String(size.value)}
-              onChange={() =>
-                setBicycles({ ...bicycles, wheelSize: size.value })
-              }
+              defaultChecked={String(bicycles.wheelSize) === String(size.value)}
             />
             <label
               className="wheel-diameter__label"
@@ -165,13 +110,11 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         {materialTypes.map((material) => (
           <div className="material-type__item" key={material.value}>
             <input
+              className={styles.inputRadio}
               type="radio"
               name="materialType"
               value={material.value}
-              checked={bicycles.materialType === material.value}
-              onChange={() =>
-                setBicycles({ ...bicycles, materialType: material.value })
-              }
+              defaultChecked={bicycles.materialType === material.value}
             />
             <label
               className="material-type__label"
@@ -186,11 +129,11 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         {[FrameEnum.CLOSED, FrameEnum.OPEN].map((frameType) => (
           <div className="frame-type__item" key={frameType}>
             <input
+              className={styles.inputRadio}
               type="radio"
               name="frameType"
               value={frameType}
-              checked={bicycles.frameType === frameType}
-              onChange={() => setBicycles({ ...bicycles, frameType })}
+              defaultChecked={bicycles?.frameType === frameType}
               id={`frameType${frameType}`}
             />
             <label
@@ -204,18 +147,27 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         ))}
       </div>
       <div>
+        <p>Опис товару*</p>
         <textarea
           name="description"
-          placeholder="Description"
+          defaultValue={bicyclesPrimary?.description}
           required
         ></textarea>
-        <input type="checkbox" name="sale" />
+        <input
+          className={styles.inputCheckbox}
+          type="checkbox"
+          name="sale"
+          defaultChecked={bicycles?.sale}
+        />
         <label>Sale</label>
       </div>
       <div>
         <input type="file" name="img" accept="image/*" multiple required />
       </div>
-      <button type="submit">Send</button>
+      <div>
+        <Button btnType="submit">Додати новий товар</Button>
+        <Button btnType="button">Попередній перегляд</Button>
+      </div>
     </form>
   );
 };

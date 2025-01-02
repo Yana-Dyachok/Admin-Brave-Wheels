@@ -7,14 +7,14 @@ export const wheelSizes = [
 ];
 
 export const materialTypes = [
-  { value: MaterialEnum.ALUMINIUM, label: 'Aluminium' },
-  { value: MaterialEnum.CARBON, label: 'Carbon' },
-  { value: MaterialEnum.TITANIUM, label: 'Titanum' },
+  { value: MaterialEnum.ALUMINIUM, label: MaterialEnum.ALUMINIUM },
+  { value: MaterialEnum.CARBON, label: MaterialEnum.CARBON },
+  { value: MaterialEnum.TITANIUM, label: MaterialEnum.TITANIUM },
 ];
 
 export const bicycleTypes = [
-  { value: BicycleEnum.MOUNTAIN, label: 'Mountain' },
-  { value: BicycleEnum.HIGHWAY, label: 'Highway' },
-  { value: BicycleEnum.CITY, label: 'City' },
-  { value: BicycleEnum.ELECTRO, label: 'Electro' },
+  { value: BicycleEnum.MOUNTAIN, label: BicycleEnum.MOUNTAIN },
+  { value: BicycleEnum.HIGHWAY, label: BicycleEnum.HIGHWAY },
+  { value: BicycleEnum.CITY, label: BicycleEnum.CITY },
+  { value: BicycleEnum.ELECTRO, label: BicycleEnum.ELECTRO },
 ];

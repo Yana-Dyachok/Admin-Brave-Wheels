@@ -1,5 +1,5 @@
-export type BicycleType = 'MOUNTAIN' | 'HIGHWAY' | 'CITY' | 'ELECTRO';
+export type BicycleType = 'Гірський' | 'Шосейний' | 'Міський' | 'Електричний';
 
-export type MaterialType = 'ALUMINIUM' | 'TITANIUM' | 'CARBON';
+export type MaterialType = 'Алюміній' | 'Титан' | 'Карбон';
 
-export type FrameType = 'OPEN' | 'CLOSED';
+export type FrameType = 'Відкрита' | 'Закрита';

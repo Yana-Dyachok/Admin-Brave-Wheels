@@ -1,7 +1,55 @@
+@use '../../../styles/colors.scss' as colors;
 .input {
   padding: 1rem;
   font-size: 1.8rem;
   line-height: 1;
   border-radius: 1rem;
   border: 0.1rem solid black;
+}
+
+.inputCheckbox {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 0.1rem solid colors.$c-gray;
+  border-radius: 0.1rem;
+  appearance: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.inputCheckbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 17%;
+  left: 17%;
+  width: 1.44rem;
+  height: 1.44rem;
+  background-color: colors.$c-orange;
+  border-width: 0 0.2rem 0.2rem 0;
+}
+
+@mixin inputBox($r) {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: $r;
+  border: 0.1rem solid colors.$c-orange;
+  appearance: none;
+  position: relative;
+  cursor: pointer;
+
+  &:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: solid colors.$c-orange;
+    border-width: 0 0.2rem 0.2rem 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+}
+
+.inputRadio {
+  @include inputBox(50%);
 }
