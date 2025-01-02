@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { RootState } from 'lib/store';
 import { useSelector } from 'react-redux';
 import getBicycleAPI from 'app/api/get-api-all';
@@ -11,6 +12,11 @@ const AdminMenu: React.FC<BicycleSetDataProps> = ({ setBicycleData }) => {
   const checkedItems = useSelector(
     (state: RootState) => state.checked.checkedItem,
   );
+  const router = useRouter();
+
+  const handleAddClick = () => {
+    router.push(`create-bike`);
+  };
 
   const deleteBicycle = async () => {
     try {
@@ -33,7 +39,9 @@ const AdminMenu: React.FC<BicycleSetDataProps> = ({ setBicycleData }) => {
       <h1 className={styles.adminMenuTitle}>Панель управління</h1>
       <h2 className={styles.adminMenuSubTitle}>Список товарів</h2>
       <div className={styles.adminMenuButtons}>
-        <Button btnType="button">Додати новий товар</Button>
+        <Button btnType="button" onClick={handleAddClick}>
+          Додати новий товар
+        </Button>
         <Button btnType="button" onClick={deleteBicycle}>
           Видалити
         </Button>

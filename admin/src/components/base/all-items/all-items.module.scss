@@ -1,14 +1,9 @@
 @use '../../../styles/colors.scss' as colors;
-.bicyclesBlock {
-  max-width: 127.5rem;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+.table {
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 400;
+  white-space: wrap;
   border-radius: 1rem;
-  border: 1px;
-  border: 0.1rem solid colors.$c-gray;
-
-  &:last-child {
-    border-bottom: none;
-  }
+  border-collapse: collapse;
 }

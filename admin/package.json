@@ -11,6 +11,7 @@
     "prepare": "cd .. && husky admin/.husky"
   },
   "dependencies": {
+    "@mui/material": "^6.3.0",
     "@reduxjs/toolkit": "^2.5.0",
     "next": "^15.1.2",
     "react": "^19.0.0",

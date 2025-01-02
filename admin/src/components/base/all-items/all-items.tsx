@@ -2,11 +2,11 @@
 import { useEffect } from 'react';
 import RenderItem from '../../component/render-item/render-item';
 import getBicycleAPI from 'app/api/get-api-all';
-import { BicycleDataProps } from 'types/interface';
+import { BicycleAllDataProps } from 'types/interface';
 
 import styles from './all-items.module.scss';
 
-const AllItems: React.FC<BicycleDataProps> = ({
+const AllItems: React.FC<BicycleAllDataProps> = ({
   setBicycleData,
   bicycleData,
 }) => {
@@ -43,13 +43,29 @@ const AllItems: React.FC<BicycleDataProps> = ({
   }, [setBicycleData]);
 
   return (
-    <div className={styles.bicyclesBlock}>
+    <>
+      {' '}
       {bicycleData.length > 0 ? (
-        <RenderItem bicycleData={bicycleData} />
+        <table className={styles.table}>
+          <thead>
+            <tr className={styles.tr}>
+              <th className={styles.th}></th>
+              <th className={styles.th}>Фото</th>
+              <th className={styles.th}>Назва</th>
+              <th className={styles.th}>Ціна</th>
+              <th className={styles.th}>Кількість</th>
+              <th className={styles.th}>Статус</th>
+              <th className={styles.th}></th>
+            </tr>
+          </thead>
+          <tbody className={styles.tbody}>
+            <RenderItem bicycleData={bicycleData} />
+          </tbody>
+        </table>
       ) : (
-        <div>Loading...</div>
+        <div>There is not bicycles</div>
       )}
-    </div>
+    </>
   );
 };
 

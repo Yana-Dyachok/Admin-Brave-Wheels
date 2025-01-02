@@ -31,10 +31,15 @@ export interface IChecked {
   checked: boolean;
 }
 
+export interface BicycleDataProps {
+  bicycleData: IBicycleData[];
+}
+
 export interface BicycleSetDataProps {
   setBicycleData: React.Dispatch<React.SetStateAction<IBicycleData[]>>;
 }
 
-export interface BicycleDataProps extends BicycleSetDataProps {
+export interface BicycleAllDataProps {
+  setBicycleData: React.Dispatch<React.SetStateAction<IBicycleData[]>>;
   bicycleData: IBicycleData[];
 }
