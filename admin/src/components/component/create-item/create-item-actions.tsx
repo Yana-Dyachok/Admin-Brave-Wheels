@@ -1,7 +1,7 @@
 import { IBicycle } from 'types/interface';
 import { BicycleType, MaterialType, FrameType } from 'types/type';
 
-const handleFormAction = async (formData: FormData) => {
+const handleFormAction = async (formData: FormData): Promise<IBicycle> => {
   const files = formData.getAll('img') as File[];
   const base64Images: string[] = [];
   for (const file of files) {
@@ -22,7 +22,6 @@ const handleFormAction = async (formData: FormData) => {
     const isValidHex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color);
     if (!isValidHex) {
       console.error('Invalid color format');
-      return;
     }
   }
   const bicycle: IBicycle = {
@@ -42,7 +41,7 @@ const handleFormAction = async (formData: FormData) => {
     brakeType: formData.get('brakeType') as string,
     images: base64Images,
   };
-  console.log('Bicycle created successfully:', bicycle);
+  return bicycle;
 };
 
 export default handleFormAction;

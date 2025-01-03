@@ -1,54 +1,46 @@
-import { IBicycleData } from 'types/interface';
-import styles from './render-item.module.scss';
+import { IBicycle } from 'types/interface';
+import styles from './previous-item.module.scss';
 
 interface Props {
-  bicycleData: IBicycleData[];
+  bicycleData: IBicycle;
 }
 
-export const RenderItem: React.FC<Props> = ({ bicycleData }) => {
+export const PreviousItem: React.FC<Props> = ({ bicycleData }) => {
   return (
-    <>
-      {bicycleData.length > 0 ? (
-        bicycleData.map((bicycle) => (
-          <div key={bicycle.id} className={styles.bicycleItem}>
-            <h2>{bicycle.name}</h2>
-            <div className={styles.bicycleBlock}>
-              <div className={styles.bicycleInfoBlock}>
-                <p>Type: {bicycle.bicycleType}</p>
-                <p>Material: {bicycle.materialType}</p>
-                <p>Frame: {bicycle.frameType}</p>
-                <p>Sale: {bicycle.sale ? 'Yes' : 'No'}</p>
-                <p>Price: {bicycle.price}</p>
-                <p>Wheel Size: {bicycle.wheelSize}</p>
-                <p>Color: {bicycle.color}</p>
-                <p>Weight: {bicycle.weight}</p>
-                <p>Guarantee: {bicycle.guarantee}</p>
-                <p>Brake Type: {bicycle.brakeType}</p>
-                <p>Brand: {bicycle.brand}</p>
-                <p>Quantity: {bicycle.quantity}</p>
-              </div>
-              <div className={styles.imgBlock}>
-                {bicycle.images.map((image, imgIndex) => (
-                  // eslint-disable-next-line  @next/next/no-img-element
-                  <img
-                    className={styles.cardImg}
-                    key={imgIndex}
-                    src={image}
-                    alt={`Image ${imgIndex}`}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className={styles.description}>
-              Description: {bicycle.description}
-            </div>
-          </div>
-        ))
-      ) : (
-        <div>there are no bicycles</div>
-      )}
-    </>
+    <div key={bicycleData.name} className={styles.bicycleItem}>
+      <h2>{bicycleData.name}</h2>
+      <div className={styles.bicycleBlock}>
+        <div className={styles.bicycleInfoBlock}>
+          <p>Type: {bicycleData.bicycleType}</p>
+          <p>Material: {bicycleData.materialType}</p>
+          <p>Frame: {bicycleData.frameType}</p>
+          <p>Sale: {bicycleData.sale ? 'Yes' : 'No'}</p>
+          <p>Price: {bicycleData.price}</p>
+          <p>Wheel Size: {bicycleData.wheelSize}</p>
+          <p>Color: {bicycleData.color}</p>
+          <p>Weight: {bicycleData.weight}</p>
+          <p>Guarantee: {bicycleData.guarantee}</p>
+          <p>Brake Type: {bicycleData.brakeType}</p>
+          <p>Brand: {bicycleData.brand}</p>
+          <p>Quantity: {bicycleData.quantity}</p>
+        </div>
+        <div className={styles.imgBlock}>
+          {bicycleData.images.map((image, imgIndex) => (
+            // eslint-disable-next-line  @next/next/no-img-element
+            <img
+              className={styles.cardImg}
+              key={imgIndex}
+              src={image}
+              alt={`Image ${imgIndex}`}
+            />
+          ))}
+        </div>
+      </div>
+      <div className={styles.description}>
+        Description: {bicycleData.description}
+      </div>
+    </div>
   );
 };
 
-export default RenderItem;
+export default PreviousItem;

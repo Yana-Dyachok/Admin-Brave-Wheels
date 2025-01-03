@@ -1,12 +1,20 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { addItem } from 'lib/slices/create-item-slice';
 import { IBicycle } from 'types/interface';
-import { FrameEnum } from 'types/enum';
-import { bicycleTypes, wheelSizes, materialTypes } from 'utils/const-form';
+import {
+  bicycleTypes,
+  wheelSizes,
+  materialTypes,
+  frameTypes,
+} from 'utils/const-form';
 import handleFormAction from './create-item-actions';
 import { initialStateBicycle } from 'utils/initial-state-bicycle';
 import Button from '@/components/ui/button/button';
+import createBicycleAPI from 'app/api/post-api';
 import styles from './create-item.module.scss';
 
 interface BicycleProps {
@@ -15,9 +23,28 @@ interface BicycleProps {
 
 const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
   const [bicycles] = useState<IBicycle>(bicyclesPrimary || initialStateBicycle);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handleCreateItem = async (formData: FormData) => {
+    try {
+      const bicycle = await handleFormAction(formData);
+      dispatch(addItem(bicycle));
+      if (bicycle) {
+        const response = await createBicycleAPI(bicycle);
+        console.log('Bicycle created successfully:', response);
+      } else {
+        console.error('Failed to create bicycle: Invalid data');
+      }
+    } catch (error) {
+      console.error('Error creating bicycle:', error);
+    }
+  };
 
+  const handlePreviousItem = () => {
+    router.push('/create-bike/preview');
+  };
   return (
-    <form action={handleFormAction}>
+    <form action={handleCreateItem}>
       <div>
         <p>Назва товару*</p>
         <input
@@ -126,22 +153,21 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         ))}
       </div>
       <div className="radio-input__block frame-type">
-        {[FrameEnum.CLOSED, FrameEnum.OPEN].map((frameType) => (
-          <div className="frame-type__item" key={frameType}>
+        {frameTypes.map((frameType) => (
+          <div className="frame-type__item" key={frameType.value}>
             <input
               className={styles.inputRadio}
               type="radio"
               name="frameType"
-              value={frameType}
-              defaultChecked={bicycles?.frameType === frameType}
+              value={frameType.value}
+              defaultChecked={bicycles?.frameType === frameType.value}
               id={`frameType${frameType}`}
             />
             <label
               className="frame-type__label"
-              htmlFor={`frameType${frameType}`}
+              htmlFor={`frameType${frameType.label}`}
             >
-              {frameType[0] +
-                frameType.slice(1, frameType.length).toLowerCase()}
+              {frameType.label}
             </label>
           </div>
         ))}
@@ -166,7 +192,9 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
       </div>
       <div>
         <Button btnType="submit">Додати новий товар</Button>
-        <Button btnType="button">Попередній перегляд</Button>
+        <Button btnType="button" onClick={handlePreviousItem}>
+          Попередній перегляд
+        </Button>
       </div>
     </form>
   );

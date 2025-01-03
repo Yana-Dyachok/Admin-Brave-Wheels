@@ -1,17 +1,17 @@
 export enum BicycleEnum {
-  MOUNTAIN = 'Гірський',
-  HIGHWAY = 'Шосейний',
-  CITY = 'Міський',
-  ELECTRO = 'Електричний',
+  MOUNTAIN = 'MOUNTAIN',
+  HIGHWAY = 'HIGHWAY',
+  CITY = 'CITY',
+  ELECTRO = 'ELECTRO',
 }
 
 export enum MaterialEnum {
-  ALUMINIUM = 'Алюміній',
-  CARBON = 'Карбон',
-  TITANIUM = 'Титан',
+  ALUMINIUM = 'ALUMINIUM',
+  CARBON = 'CARBON',
+  TITANIUM = 'TITANIUM',
 }
 
 export enum FrameEnum {
-  OPEN = 'Відкрита',
-  CLOSED = 'Закрита',
+  OPEN = 'OPEN',
+  CLOSED = 'CLOSED',
 }

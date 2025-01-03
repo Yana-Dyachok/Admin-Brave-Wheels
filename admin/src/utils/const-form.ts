@@ -1,4 +1,4 @@
-import { BicycleEnum, MaterialEnum } from 'types/enum';
+import { BicycleEnum, MaterialEnum, FrameEnum } from 'types/enum';
 
 export const wheelSizes = [
   { value: 26, label: '26' },
@@ -7,14 +7,19 @@ export const wheelSizes = [
 ];
 
 export const materialTypes = [
-  { value: MaterialEnum.ALUMINIUM, label: MaterialEnum.ALUMINIUM },
-  { value: MaterialEnum.CARBON, label: MaterialEnum.CARBON },
-  { value: MaterialEnum.TITANIUM, label: MaterialEnum.TITANIUM },
+  { value: MaterialEnum.ALUMINIUM, label: 'Алюміній' },
+  { value: MaterialEnum.CARBON, label: 'Карбон' },
+  { value: MaterialEnum.TITANIUM, label: 'Титан' },
 ];
 
 export const bicycleTypes = [
-  { value: BicycleEnum.MOUNTAIN, label: BicycleEnum.MOUNTAIN },
-  { value: BicycleEnum.HIGHWAY, label: BicycleEnum.HIGHWAY },
-  { value: BicycleEnum.CITY, label: BicycleEnum.CITY },
-  { value: BicycleEnum.ELECTRO, label: BicycleEnum.ELECTRO },
+  { value: BicycleEnum.MOUNTAIN, label: 'Гірський' },
+  { value: BicycleEnum.HIGHWAY, label: 'Шосейний' },
+  { value: BicycleEnum.CITY, label: 'Міський' },
+  { value: BicycleEnum.ELECTRO, label: 'Електричний' },
+];
+
+export const frameTypes = [
+  { value: FrameEnum.CLOSED, label: 'Закрита' },
+  { value: FrameEnum.OPEN, label: 'Відкрита' },
 ];

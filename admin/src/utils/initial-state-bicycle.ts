@@ -1,5 +1,5 @@
 import { IBicycle } from 'types/interface';
-import { BicycleEnum, FrameEnum, MaterialEnum } from 'types/enum';
+import { BicycleEnum, MaterialEnum, FrameEnum } from 'types/enum';
 export const initialStateBicycle: IBicycle = {
   name: '',
   bicycleType: BicycleEnum.MOUNTAIN,
