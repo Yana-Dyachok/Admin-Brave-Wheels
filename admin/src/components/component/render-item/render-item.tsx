@@ -38,15 +38,12 @@ const RenderItem: React.FC<BicycleDataProps> = ({ bicycleData }) => {
           </td>
           <td className={styles.td}>
             <div className={styles.imgBlock}>
-              {bicycle.images.map((image, imgIndex) => (
-                // eslint-disable-next-line  @next/next/no-img-element
-                <img
-                  className={styles.cardImg}
-                  key={imgIndex}
-                  src={image}
-                  alt={`Image ${imgIndex}`}
-                />
-              ))}
+              {/* eslint-disable-next-line  @next/next/no-img-element */}
+              <img
+                className={styles.cardImg}
+                src={bicycle.images[0]}
+                alt={`Image ${bicycle.name}`}
+              />
             </div>
           </td>
           <td className={styles.td}>

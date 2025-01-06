@@ -1,54 +1,26 @@
 @use '../../../styles/colors.scss' as colors;
 
 .bicycleItem {
-  width: 55rem;
-  height: 35rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 1rem;
   font-size: 1.5rem;
   border-radius: 1rem;
   transition: all 0.4s ease-out;
-  box-shadow: 0rem 0.3rem 0.6rem colors.$c-orange;
+  height: 80vh;
 }
 
 .bicycleInfoBlock {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   text-align: left;
   gap: 0.5rem;
 }
 
-.bicycleBlock {
-  display: flex;
-  height: 16rem;
-}
-
-.btnDelete {
-  padding: 0.5rem 1rem;
-  background-color: colors.$c-orange;
-  color: var(--c-white);
-  font-size: 2rem;
-  border-radius: 1rem;
-}
-
-.imgBlock {
-  display: block;
-  border-radius: 1rem;
-  margin: 0 auto 1rem;
-}
-
-.cardImg {
-  object-fit: cover;
-  object-position: center;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1 / 1;
-  cursor: pointer;
-  box-sizing: border-box;
-  transition: all 0.4s ease-out;
+.color {
+  display: 'inline-block';
+  width: 3rem;
+  height: 2rem;
 }
 
 .description {

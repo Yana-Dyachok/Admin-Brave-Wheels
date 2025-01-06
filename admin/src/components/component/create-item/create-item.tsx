@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useActionState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { addItem } from 'lib/slices/create-item-slice';
@@ -15,6 +15,7 @@ import handleFormAction from './create-item-actions';
 import { initialStateBicycle } from 'utils/initial-state-bicycle';
 import Button from '@/components/ui/button/button';
 import createBicycleAPI from 'app/api/post-api';
+import { prepareBicycleData } from 'utils/convert-to-base64';
 import styles from './create-item.module.scss';
 
 interface BicycleProps {
@@ -25,26 +26,32 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
   const [bicycles] = useState<IBicycle>(bicyclesPrimary || initialStateBicycle);
   const dispatch = useDispatch();
   const router = useRouter();
-  const handleCreateItem = async (formData: FormData) => {
+
+  const handleCreateItem = async (
+    state: 'succes' | '',
+    formData: FormData,
+  ): Promise<'succes' | ''> => {
     try {
       const bicycle = await handleFormAction(formData);
-      dispatch(addItem(bicycle));
       if (bicycle) {
-        const response = await createBicycleAPI(bicycle);
-        console.log('Bicycle created successfully:', response);
+        createBicycleAPI(prepareBicycleData(bicycle));
+        dispatch(addItem(bicycle));
+        router.push('/create-bike/preview');
+        return 'succes';
       } else {
         console.error('Failed to create bicycle: Invalid data');
+        return '';
       }
     } catch (error) {
       console.error('Error creating bicycle:', error);
+      return '';
     }
   };
 
-  const handlePreviousItem = () => {
-    router.push('/create-bike/preview');
-  };
+  const [message, formAction, isPending] = useActionState(handleCreateItem, '');
+  console.log(message);
   return (
-    <form action={handleCreateItem}>
+    <form action={formAction}>
       <div>
         <p>Назва товару*</p>
         <input
@@ -188,13 +195,19 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         <label>Sale</label>
       </div>
       <div>
-        <input type="file" name="img" accept="image/*" multiple required />
+        <div>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={`img-block-${index}`}>
+              <input type="file" name="img" accept="image/*" multiple />
+            </div>
+          ))}
+        </div>
       </div>
       <div>
-        <Button btnType="submit">Додати новий товар</Button>
-        <Button btnType="button" onClick={handlePreviousItem}>
-          Попередній перегляд
+        <Button btnType="submit" disabled={isPending}>
+          Додати новий товар
         </Button>
+        <Button btnType="submit">Попередній перегляд</Button>
       </div>
     </form>
   );

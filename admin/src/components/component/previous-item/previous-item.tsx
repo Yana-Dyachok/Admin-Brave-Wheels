@@ -1,4 +1,5 @@
 import { IBicycle } from 'types/interface';
+import RenderImage from '@/components/ui/render-img/render-img';
 import styles from './previous-item.module.scss';
 
 interface Props {
@@ -17,7 +18,12 @@ export const PreviousItem: React.FC<Props> = ({ bicycleData }) => {
           <p>Sale: {bicycleData.sale ? 'Yes' : 'No'}</p>
           <p>Price: {bicycleData.price}</p>
           <p>Wheel Size: {bicycleData.wheelSize}</p>
-          <p>Color: {bicycleData.color}</p>
+          <div
+            className={styles.color}
+            style={{
+              backgroundColor: bicycleData.color,
+            }}
+          ></div>
           <p>Weight: {bicycleData.weight}</p>
           <p>Guarantee: {bicycleData.guarantee}</p>
           <p>Brake Type: {bicycleData.brakeType}</p>
@@ -25,19 +31,13 @@ export const PreviousItem: React.FC<Props> = ({ bicycleData }) => {
           <p>Quantity: {bicycleData.quantity}</p>
         </div>
         <div className={styles.imgBlock}>
-          {bicycleData.images.map((image, imgIndex) => (
-            // eslint-disable-next-line  @next/next/no-img-element
-            <img
-              className={styles.cardImg}
-              key={imgIndex}
-              src={image}
-              alt={`Image ${imgIndex}`}
-            />
+          {bicycleData.images.map((image, index) => (
+            <RenderImage base64Image={image} key={`${image}-prev-${index}`} />
           ))}
         </div>
-      </div>
-      <div className={styles.description}>
-        Description: {bicycleData.description}
+        <div className={styles.description}>
+          Description: {bicycleData.description}
+        </div>
       </div>
     </div>
   );

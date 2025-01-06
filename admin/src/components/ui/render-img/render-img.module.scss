@@ -1,0 +1,13 @@
+.imgBlock {
+  display: block;
+  width: 40rem;
+  height: 40rem;
+}
+
+.img {
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: 100%;
+}

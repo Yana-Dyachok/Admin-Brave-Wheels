@@ -1,29 +1,29 @@
 import { IBicycle } from 'types/interface';
 import { BicycleType, MaterialType, FrameType } from 'types/type';
-
+import { convertToBase64 } from 'utils/convert-to-base64';
+import { hexToRGB, rgbToHex } from 'utils/get-color-hex';
 const handleFormAction = async (formData: FormData): Promise<IBicycle> => {
   const files = formData.getAll('img') as File[];
-  const base64Images: string[] = [];
-  for (const file of files) {
-    const result = await new Promise<string | null>((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = () => resolve(null);
-      reader.readAsDataURL(file);
-    });
+  const validFiles = files.filter((file) => file && file.size > 0);
 
+  const base64Images: string[] = [];
+  for (const file of validFiles) {
+    const result = await convertToBase64(file);
     if (result) {
-      const base64String = result.split(',')[1];
-      base64Images.push(base64String);
+      base64Images.push(result);
     }
   }
-  const color = formData.get('color') as string;
+  let color = formData.get('color') as string;
   if (color) {
     const isValidHex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color);
     if (!isValidHex) {
-      console.error('Invalid color format');
+      const rgbColor = hexToRGB(color);
+      if (rgbColor) {
+        color = rgbToHex(rgbColor.r, rgbColor.g, rgbColor.b);
+      }
     }
   }
+
   const bicycle: IBicycle = {
     name: formData.get('name') as string,
     brand: formData.get('brand') as string,
