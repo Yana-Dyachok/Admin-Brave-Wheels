@@ -13,7 +13,7 @@ import {
 } from 'utils/const-form';
 import handleFormAction from './create-item-actions';
 import { initialStateBicycle } from 'utils/initial-state-bicycle';
-import Button from '@/components/ui/button/button';
+import Button from 'ui/button/button';
 import createBicycleAPI from 'app/api/post-api';
 import { prepareBicycleData } from 'utils/convert-to-base64';
 import styles from './create-item.module.scss';
@@ -49,7 +49,6 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
   };
 
   const [message, formAction, isPending] = useActionState(handleCreateItem, '');
-  console.log(message);
   return (
     <form action={formAction}>
       <div>
@@ -207,6 +206,7 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         <Button btnType="submit" disabled={isPending}>
           Додати новий товар
         </Button>
+        {message}
         <Button btnType="submit">Попередній перегляд</Button>
       </div>
     </form>

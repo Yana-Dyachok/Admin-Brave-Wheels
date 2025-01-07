@@ -1,6 +1,6 @@
 'use client';
 import { Component, ErrorInfo, ReactNode } from 'react';
-import Button from '../components/ui/button/button';
+import Button from '../ui/button/button';
 import '../styles/common.scss';
 
 interface ErrorBoundaryProps {

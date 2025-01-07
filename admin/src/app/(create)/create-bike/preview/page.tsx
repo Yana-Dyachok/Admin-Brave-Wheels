@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from 'lib/store';
 import PreviousItem from '@/components/component/previous-item/previous-item';
-import Button from '@/components/ui/button/button';
+import Button from 'ui/button/button';
 
 const PreviewItemPage = () => {
   const createdItems = useSelector(

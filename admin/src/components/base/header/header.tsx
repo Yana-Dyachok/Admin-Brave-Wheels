@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Logo from '../../ui/logo/logo';
+import Logo from '../../../ui/logo/logo';
 import styles from './header.module.scss';
 
 const Header = () => {

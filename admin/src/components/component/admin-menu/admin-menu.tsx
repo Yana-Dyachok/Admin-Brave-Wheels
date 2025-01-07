@@ -4,7 +4,7 @@ import { RootState } from 'lib/store';
 import { useSelector } from 'react-redux';
 import getBicycleAPI from 'app/api/get-api-all';
 import deleteBicycleAPI from 'app/api/delete-api';
-import Button from '@/components/ui/button/button';
+import Button from 'ui/button/button';
 import { BicycleSetDataProps } from 'types/interface';
 import styles from './admin-menu.module.scss';
 
