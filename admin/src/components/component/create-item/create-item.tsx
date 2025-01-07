@@ -3,7 +3,7 @@
 import React, { useState, useActionState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { addItem } from 'lib/slices/create-item-slice';
+import { addItem, deleteItem } from 'lib/slices/create-item-slice';
 import { IBicycle } from 'types/interface';
 import {
   bicycleTypes,
@@ -24,6 +24,7 @@ interface BicycleProps {
 
 const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
   const [bicycles] = useState<IBicycle>(bicyclesPrimary || initialStateBicycle);
+  const [btnAction, setBtnAction] = useState<string>('');
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -34,9 +35,14 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
     try {
       const bicycle = await handleFormAction(formData);
       if (bicycle) {
-        createBicycleAPI(prepareBicycleData(bicycle));
-        dispatch(addItem(bicycle));
-        router.push('/create-bike/preview');
+        if (btnAction === 'add') {
+          createBicycleAPI(prepareBicycleData(bicycle));
+          dispatch(deleteItem());
+        }
+        if (btnAction === 'prev') {
+          dispatch(addItem(bicycle));
+          router.push('/create-bike/preview');
+        }
         return 'succes';
       } else {
         console.error('Failed to create bicycle: Invalid data');
@@ -203,11 +209,17 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         </div>
       </div>
       <div>
-        <Button btnType="submit" disabled={isPending}>
+        <Button
+          btnType="submit"
+          disabled={isPending}
+          onClick={() => setBtnAction('add')}
+        >
           Додати новий товар
         </Button>
         {message}
-        <Button btnType="submit">Попередній перегляд</Button>
+        <Button btnType="submit" onClick={() => setBtnAction('prev')}>
+          Попередній перегляд
+        </Button>
       </div>
     </form>
   );

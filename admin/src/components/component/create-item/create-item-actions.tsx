@@ -2,6 +2,7 @@ import { IBicycle } from 'types/interface';
 import { BicycleType, MaterialType, FrameType } from 'types/type';
 import { convertToBase64 } from 'utils/convert-to-base64';
 import { hexToRGB, rgbToHex } from 'utils/get-color-hex';
+
 const handleFormAction = async (formData: FormData): Promise<IBicycle> => {
   const files = formData.getAll('img') as File[];
   const validFiles = files.filter((file) => file && file.size > 0);

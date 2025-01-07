@@ -17,8 +17,11 @@ const createdItemSlice = createSlice({
     addItem(state, action: PayloadAction<IBicycle>) {
       state.createdItem = action.payload;
     },
+    deleteItem(state) {
+      state.createdItem = initialStateBicycle;
+    },
   },
 });
 
-export const { addItem } = createdItemSlice.actions;
+export const { addItem, deleteItem } = createdItemSlice.actions;
 export default createdItemSlice.reducer;
