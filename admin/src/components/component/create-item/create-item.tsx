@@ -41,7 +41,7 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         }
         if (btnAction === 'prev') {
           dispatch(addItem(bicycle));
-          router.push('/create-bike/preview');
+          router.push(`${window.location.pathname}/preview`);
         }
         return 'succes';
       } else {
@@ -66,7 +66,12 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
           defaultValue={bicyclesPrimary?.name}
           required
         />
-        <input type="color" name="color" defaultValue="#000000" required />
+        <input
+          type="color"
+          name="color"
+          defaultValue={bicyclesPrimary?.color}
+          required
+        />
         <input
           className={styles.input}
           type="text"

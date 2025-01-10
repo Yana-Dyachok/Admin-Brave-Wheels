@@ -18,7 +18,8 @@ const RenderItem: React.FC<BicycleDataProps> = ({ bicycleData }) => {
   };
 
   const handleEditBicycle = (bicycle: IBicycleData) => {
-    router.push(`create-bike/${bicycle.id}`);
+    console.log('id', bicycle.id);
+    router.push(`update-bike/${bicycle.id}`);
   };
 
   return (
