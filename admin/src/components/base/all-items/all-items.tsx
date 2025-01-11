@@ -1,9 +1,10 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import RenderItem from '../../component/render-item/render-item';
 import getBicycleAPI from 'app/api/get-api-all';
 import { BicycleAllDataProps } from 'types/interface';
-
+import { mapBicycleData } from './get-data';
+import Loader from 'ui/loader/loader';
 import styles from './all-items.module.scss';
 
 const AllItems: React.FC<BicycleAllDataProps> = ({
@@ -14,24 +15,7 @@ const AllItems: React.FC<BicycleAllDataProps> = ({
     getBicycleAPI()
       .then((response) => {
         if (Array.isArray(response)) {
-          const product = response.map((data) => ({
-            id: data.id,
-            name: data.name,
-            bicycleType: data.bicycleType,
-            materialType: data.materialType,
-            frameType: data.frameType,
-            sale: data.sale,
-            price: data.price,
-            wheelSize: data.wheelSize,
-            color: data.color,
-            description: data.description,
-            weight: data.weight,
-            guarantee: data.guarantee,
-            brakeType: data.brakeType,
-            brand: data.brand,
-            quantity: data.quantity,
-            images: data.images,
-          }));
+          const product = mapBicycleData(response);
           setBicycleData(product);
         } else {
           console.error('Expected an array but got:', response);
@@ -43,7 +27,7 @@ const AllItems: React.FC<BicycleAllDataProps> = ({
   }, [setBicycleData]);
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       {' '}
       {bicycleData.length > 0 ? (
         <table className={styles.table}>
@@ -65,7 +49,7 @@ const AllItems: React.FC<BicycleAllDataProps> = ({
       ) : (
         <div>There is not bicycles</div>
       )}
-    </>
+    </Suspense>
   );
 };
 

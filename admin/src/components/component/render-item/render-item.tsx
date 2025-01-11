@@ -1,10 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { IBicycleData, BicycleDataProps } from 'types/interface';
-import styles from './render-item.module.scss';
 import { toggleComplete } from 'lib/slices/checked-item-slice';
+import getImagesByIdAPI from 'app/api/get-img-by-id';
+import Loader from 'ui/loader/loader';
+import styles from './render-item.module.scss';
 
 const RenderItem: React.FC<BicycleDataProps> = ({ bicycleData }) => {
   const router = useRouter();
@@ -17,13 +19,14 @@ const RenderItem: React.FC<BicycleDataProps> = ({ bicycleData }) => {
     dispatch(toggleComplete({ id, checked }));
   };
 
-  const handleEditBicycle = (bicycle: IBicycleData) => {
-    console.log('id', bicycle.id);
+  const handleEditBicycle = async (bicycle: IBicycleData) => {
     router.push(`update-bike/${bicycle.id}`);
+    const imgs = await getImagesByIdAPI(bicycle.id);
+    console.log('imgs', imgs);
   };
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       {bicycleData.map((bicycle) => (
         <tr key={bicycle.id} className={styles.tr}>
           <td className={styles.td}>
@@ -78,7 +81,7 @@ const RenderItem: React.FC<BicycleDataProps> = ({ bicycleData }) => {
           </td>
         </tr>
       ))}
-    </>
+    </Suspense>
   );
 };
 

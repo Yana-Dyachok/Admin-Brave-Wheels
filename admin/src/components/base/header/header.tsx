@@ -8,7 +8,7 @@ const Header = () => {
       <div className={styles.headerInner}>
         <Link
           href="https://brave-wheels.netlify.app/home"
-          className={`${styles.logo} ${styles.navLink}`}
+          className={styles.logo}
         >
           <Logo />
         </Link>

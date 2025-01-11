@@ -1,8 +1,9 @@
 'use client';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import getBicycleByIdAPI from 'app/api/get-api-by-id';
 import { IBicycle } from 'types/interface';
+import Loader from 'ui/loader/loader';
 import CreateItem from '@/components/component/create-item/create-item';
 
 const EditItem = () => {
@@ -11,25 +12,21 @@ const EditItem = () => {
   const [bicyclesPrimary, setBicyclesPrimary] = useState<IBicycle>();
 
   useEffect(() => {
-    if (!id) {
-      return;
+    if (id) {
+      (async () => {
+        try {
+          const data = await getBicycleByIdAPI(id);
+          setBicyclesPrimary(data);
+        } catch (error) {
+          console.log(`Failed to fetch data ${error}`);
+        }
+      })();
     }
-
-    const fetchData = async () => {
-      try {
-        const data = await getBicycleByIdAPI(id);
-        setBicyclesPrimary(data);
-      } catch (error) {
-        console.log(`Failed to fetch data ${error}`);
-      }
-    };
-
-    fetchData();
   }, [id]);
-  return !bicyclesPrimary ? (
-    <div>Loading...</div>
-  ) : (
-    <CreateItem bicyclesPrimary={bicyclesPrimary} />
+  return (
+    <Suspense fallback={<Loader />}>
+      <CreateItem bicyclesPrimary={bicyclesPrimary} />
+    </Suspense>
   );
 };
 
