@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { IBicycleData, BicycleDataProps } from 'types/interface';
 import { toggleComplete } from 'lib/slices/checked-item-slice';
-import getImagesByIdAPI from 'app/api/get-img-by-id';
 import Loader from 'ui/loader/loader';
 import styles from './render-item.module.scss';
 
@@ -19,10 +18,8 @@ const RenderItem: React.FC<BicycleDataProps> = ({ bicycleData }) => {
     dispatch(toggleComplete({ id, checked }));
   };
 
-  const handleEditBicycle = async (bicycle: IBicycleData) => {
+  const handleEditBicycle = (bicycle: IBicycleData) => {
     router.push(`update-bike/${bicycle.id}`);
-    const imgs = await getImagesByIdAPI(bicycle.id);
-    console.log('imgs', imgs);
   };
 
   return (

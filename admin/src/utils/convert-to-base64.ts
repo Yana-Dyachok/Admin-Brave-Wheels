@@ -13,6 +13,24 @@ export const convertToBase64 = (file: File): Promise<string> => {
   });
 };
 
+export const convertUrlToBase64 = async (url: string): Promise<string> => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch image: ${response.statusText}`);
+    }
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    throw new Error(`Error converting URL to Base64: ${error}`);
+  }
+};
+
 export const prepareBicycleData = (bicycle: IBicycle) => {
   const updatedImages = bicycle.images.map((image: string) => {
     const parts = image.split(',');

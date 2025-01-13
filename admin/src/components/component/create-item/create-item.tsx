@@ -4,7 +4,7 @@ import React, { useState, useActionState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { addItem, deleteItem } from 'lib/slices/create-item-slice';
-import { IBicycle } from 'types/interface';
+import { IBicycleData } from 'types/interface';
 import {
   bicycleTypes,
   wheelSizes,
@@ -16,14 +16,17 @@ import { initialStateBicycle } from 'utils/initial-state-bicycle';
 import Button from 'ui/button/button';
 import createBicycleAPI from 'app/api/post-api';
 import { prepareBicycleData } from 'utils/convert-to-base64';
+import RenderImage from 'ui/render-img/render-img';
 import styles from './create-item.module.scss';
 
 interface BicycleProps {
-  bicyclesPrimary?: IBicycle;
+  bicyclesPrimary?: IBicycleData;
 }
 
 const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
-  const [bicycles] = useState<IBicycle>(bicyclesPrimary || initialStateBicycle);
+  const [bicycles] = useState<IBicycleData>(
+    bicyclesPrimary || initialStateBicycle,
+  );
   const [btnAction, setBtnAction] = useState<string>('');
   const dispatch = useDispatch();
   const router = useRouter();
@@ -33,7 +36,10 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
     formData: FormData,
   ): Promise<'succes' | ''> => {
     try {
-      const bicycle = await handleFormAction(formData);
+      const bicycle = await handleFormAction(
+        formData,
+        bicyclesPrimary?.id || '',
+      );
       if (bicycle) {
         if (btnAction === 'add') {
           createBicycleAPI(prepareBicycleData(bicycle));
@@ -209,6 +215,9 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
           {Array.from({ length: 6 }).map((_, index) => (
             <div key={`img-block-${index}`}>
               <input type="file" name="img" accept="image/*" multiple />
+              {bicyclesPrimary && (
+                <RenderImage base64Image={bicyclesPrimary?.images[index]} />
+              )}
             </div>
           ))}
         </div>

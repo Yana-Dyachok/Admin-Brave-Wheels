@@ -21,8 +21,6 @@ const PreviewItemPage = () => {
       updateBicycleAPI(prepareBicycleData(newItems), id);
       addImgAPIById(newItems.images, id);
     }
-
-    console.log('createdItems', createdItems.images);
   };
   const handleEditBicycle = () => {
     router.push('preview');
