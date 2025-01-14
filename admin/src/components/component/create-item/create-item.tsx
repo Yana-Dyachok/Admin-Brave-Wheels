@@ -19,18 +19,19 @@ import RenderImage from 'ui/render-img/render-img';
 import styles from './create-item.module.scss';
 
 interface BicycleProps {
-  bicyclesPrimary?: IBicycleData;
+  bicyclesPrimary: IBicycleData;
 }
 
 const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
   const [imagesData, setImagesData] = useState<string[]>(
-    bicyclesPrimary?.images?.slice() || [],
+    bicyclesPrimary.images.slice() || [],
   );
+
   useEffect(() => {
-    if (bicyclesPrimary?.images) {
+    if (bicyclesPrimary.images) {
       setImagesData(bicyclesPrimary.images);
     }
-  }, [bicyclesPrimary]);
+  }, [bicyclesPrimary.images]);
 
   const [btnAction, setBtnAction] = useState<string>('');
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
     try {
       const bicycle = await handleFormAction(
         formData,
-        bicyclesPrimary?.id || '',
+        bicyclesPrimary.id || '',
       );
       if (bicycle) {
         if (btnAction === 'add') {
@@ -89,48 +90,48 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
           className={styles.input}
           type="text"
           name="name"
-          defaultValue={bicyclesPrimary?.name}
+          defaultValue={bicyclesPrimary.name}
           required
         />
         <input
           type="color"
           name="color"
-          defaultValue={bicyclesPrimary?.color}
+          defaultValue={bicyclesPrimary.color}
           required
         />
         <input
           className={styles.input}
           type="text"
           name="brand"
-          defaultValue={bicyclesPrimary?.brand}
+          defaultValue={bicyclesPrimary.brand}
           required
         />
         <input
           className={styles.input}
           type="text"
           name="brakeType"
-          defaultValue={bicyclesPrimary?.brakeType}
+          defaultValue={bicyclesPrimary.brakeType}
           required
         />
         <input
           className={styles.input}
           type="number"
           name="price"
-          defaultValue={bicyclesPrimary?.price}
+          defaultValue={bicyclesPrimary.price}
           required
         />
         <input
           className={styles.input}
           type="number"
           name="weight"
-          defaultValue={bicyclesPrimary?.weight}
+          defaultValue={bicyclesPrimary.weight}
           required
         />
         <input
           className={styles.input}
           type="number"
           name="quantity"
-          defaultValue={bicyclesPrimary?.quantity}
+          defaultValue={bicyclesPrimary.quantity}
           required
           min={1}
         />
@@ -138,16 +139,16 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
           className={styles.input}
           type="number"
           name="guarantee"
-          defaultValue={bicyclesPrimary?.guarantee}
+          defaultValue={bicyclesPrimary.guarantee}
           required
         />
       </div>
-      <div className="select-input__block">
+      <div className={styles.selectTypeBlock}>
         <p>Тип товару*</p>
         <select
           className={styles.inputSelect}
           name="bicycleType"
-          defaultValue={bicyclesPrimary?.bicycleType}
+          defaultValue={bicyclesPrimary.bicycleType}
         >
           {bicycleTypes.map((type) => (
             <option key={type.value} value={type.value}>
@@ -156,79 +157,60 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
           ))}
         </select>
       </div>
-
-      <div className="radio-input__block">
-        {wheelSizes.map((size) => (
-          <div className="radio-input__item" key={size.value}>
-            <input
-              className={styles.inputRadio}
-              type="radio"
-              name="wheelSize"
-              value={String(size.value)}
-              defaultChecked={
-                String(bicyclesPrimary?.wheelSize) === String(size.value)
-              }
-            />
-            <label
-              className="wheel-diameter__label"
-              htmlFor={`wheelSize-${size.value}`}
-            >
+      <div className={styles.selectTypeBlock}>
+        <p>Діаметр колес*</p>
+        <select
+          className={styles.inputSelect}
+          name="wheelSize"
+          defaultValue={bicyclesPrimary.wheelSize}
+        >
+          {wheelSizes.map((size) => (
+            <option key={size.value} value={size.value}>
               {size.label}
-            </label>
-          </div>
-        ))}
+            </option>
+          ))}
+        </select>
       </div>
-      <div className="radio-input__block">
-        {materialTypes.map((material) => (
-          <div className="material-type__item" key={material.value}>
-            <input
-              className={styles.inputRadio}
-              type="radio"
-              name="materialType"
-              value={material.value}
-              defaultChecked={bicyclesPrimary?.materialType === material.value}
-            />
-            <label
-              className="material-type__label"
-              htmlFor={`materialType-${material.value}`}
-            >
-              {material.label}
-            </label>
-          </div>
-        ))}
+      <div className={styles.selectTypeBlock}>
+        <p>Тип матеріалу*</p>
+        <select
+          className={styles.inputSelect}
+          name="materialType"
+          defaultValue={bicyclesPrimary.materialType}
+        >
+          {materialTypes.map((type) => (
+            <option key={type.value} value={type.value}>
+              {type.label}
+            </option>
+          ))}
+        </select>
       </div>
-      <div className="radio-input__block frame-type">
-        {frameTypes.map((frameType) => (
-          <div className="frame-type__item" key={frameType.value}>
-            <input
-              className={styles.inputRadio}
-              type="radio"
-              name="frameType"
-              value={frameType.value}
-              defaultChecked={bicyclesPrimary?.frameType === frameType.value}
-              id={`frameType${frameType}`}
-            />
-            <label
-              className="frame-type__label"
-              htmlFor={`frameType${frameType.label}`}
-            >
-              {frameType.label}
-            </label>
-          </div>
-        ))}
+      <div className={styles.selectTypeBlock}>
+        <p>Тип *</p>
+        <select
+          className={styles.inputSelect}
+          name="frameType"
+          defaultValue={bicyclesPrimary.frameType}
+        >
+          {frameTypes.map((type) => (
+            <option key={type.value} value={type.value}>
+              {type.label}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
         <p>Опис товару*</p>
         <textarea
           name="description"
-          defaultValue={bicyclesPrimary?.description}
+          defaultValue={bicyclesPrimary.description}
           required
         ></textarea>
         <input
           className={styles.inputCheckbox}
           type="checkbox"
           name="sale"
-          defaultChecked={bicyclesPrimary?.sale}
+          defaultChecked={bicyclesPrimary.sale}
         />
         <label>Sale</label>
       </div>

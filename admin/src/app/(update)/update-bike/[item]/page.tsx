@@ -1,6 +1,6 @@
 'use client';
 import { useParams } from 'next/navigation';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState } from 'react';
 import getBicycleByIdAPI from 'app/api/get-api-by-id';
 import { IBicycleData } from 'types/interface';
 import Loader from 'ui/loader/loader';
@@ -9,7 +9,9 @@ import CreateItem from '@/components/component/create-item/create-item';
 const EditItem = () => {
   const params = useParams();
   const id = Array.isArray(params.item) ? params.item[0] : params.item;
-  const [bicyclesPrimary, setBicyclesPrimary] = useState<IBicycleData>();
+  const [bicyclesPrimary, setBicyclesPrimary] = useState<IBicycleData | null>(
+    null,
+  );
 
   useEffect(() => {
     if (id) {
@@ -23,10 +25,15 @@ const EditItem = () => {
       })();
     }
   }, [id]);
+
   return (
-    <Suspense fallback={<Loader />}>
-      <CreateItem bicyclesPrimary={bicyclesPrimary} />
-    </Suspense>
+    <>
+      {!bicyclesPrimary ? (
+        <Loader />
+      ) : (
+        <CreateItem bicyclesPrimary={bicyclesPrimary} />
+      )}
+    </>
   );
 };
 
