@@ -2,12 +2,12 @@
 import { useEffect, Suspense } from 'react';
 import RenderItem from '../../component/render-item/render-item';
 import getBicycleAPI from 'app/api/get-api-all';
-import { BicycleAllDataProps } from 'types/interface';
+import { BicycleDataProps } from 'types/interface';
 import { mapBicycleData } from './get-data';
 import Loader from 'ui/loader/loader';
 import styles from './all-items.module.scss';
 
-const AllItems: React.FC<BicycleAllDataProps> = ({
+const AllItems: React.FC<BicycleDataProps> = ({
   setBicycleData,
   bicycleData,
 }) => {

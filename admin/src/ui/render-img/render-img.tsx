@@ -11,6 +11,8 @@ const RenderImage: React.FC<{ base64Image: string | null }> = ({
         <img
           src={base64Image}
           alt="img-bicycle"
+          width={400}
+          height={400}
           className={styles.img}
           key={`${base64Image}-img`}
         />

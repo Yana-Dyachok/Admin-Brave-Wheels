@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useActionState } from 'react';
+import React, { useState, useActionState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { addItem, deleteItem } from 'lib/slices/create-item-slice';
@@ -12,10 +12,9 @@ import {
   frameTypes,
 } from 'utils/const-form';
 import handleFormAction from './create-item-actions';
-import { initialStateBicycle } from 'utils/initial-state-bicycle';
 import Button from 'ui/button/button';
 import createBicycleAPI from 'app/api/post-api';
-import { prepareBicycleData } from 'utils/convert-to-base64';
+import { prepareBicycleData, convertToBase64 } from 'utils/convert-to-base64';
 import RenderImage from 'ui/render-img/render-img';
 import styles from './create-item.module.scss';
 
@@ -24,9 +23,15 @@ interface BicycleProps {
 }
 
 const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
-  const [bicycles] = useState<IBicycleData>(
-    bicyclesPrimary || initialStateBicycle,
+  const [imagesData, setImagesData] = useState<string[]>(
+    bicyclesPrimary?.images?.slice() || [],
   );
+  useEffect(() => {
+    if (bicyclesPrimary?.images) {
+      setImagesData(bicyclesPrimary.images);
+    }
+  }, [bicyclesPrimary]);
+
   const [btnAction, setBtnAction] = useState<string>('');
   const dispatch = useDispatch();
   const router = useRouter();
@@ -57,6 +62,21 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
     } catch (error) {
       console.error('Error creating bicycle:', error);
       return '';
+    }
+  };
+
+  const handleImageChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+  ) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = await convertToBase64(e.target.files[0]);
+      console.log('file', file);
+      setImagesData((prevImages) => {
+        const updatedImages = [...prevImages];
+        updatedImages[index] = file;
+        return updatedImages;
+      });
     }
   };
 
@@ -127,7 +147,7 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         <select
           className={styles.inputSelect}
           name="bicycleType"
-          defaultValue={bicycles.bicycleType}
+          defaultValue={bicyclesPrimary?.bicycleType}
         >
           {bicycleTypes.map((type) => (
             <option key={type.value} value={type.value}>
@@ -145,7 +165,9 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
               type="radio"
               name="wheelSize"
               value={String(size.value)}
-              defaultChecked={String(bicycles.wheelSize) === String(size.value)}
+              defaultChecked={
+                String(bicyclesPrimary?.wheelSize) === String(size.value)
+              }
             />
             <label
               className="wheel-diameter__label"
@@ -164,7 +186,7 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
               type="radio"
               name="materialType"
               value={material.value}
-              defaultChecked={bicycles.materialType === material.value}
+              defaultChecked={bicyclesPrimary?.materialType === material.value}
             />
             <label
               className="material-type__label"
@@ -183,7 +205,7 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
               type="radio"
               name="frameType"
               value={frameType.value}
-              defaultChecked={bicycles?.frameType === frameType.value}
+              defaultChecked={bicyclesPrimary?.frameType === frameType.value}
               id={`frameType${frameType}`}
             />
             <label
@@ -206,21 +228,32 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
           className={styles.inputCheckbox}
           type="checkbox"
           name="sale"
-          defaultChecked={bicycles?.sale}
+          defaultChecked={bicyclesPrimary?.sale}
         />
         <label>Sale</label>
       </div>
-      <div>
-        <div>
-          {Array.from({ length: 6 }).map((_, index) => (
-            <div key={`img-block-${index}`}>
-              <input type="file" name="img" accept="image/*" multiple />
-              {bicyclesPrimary && (
-                <RenderImage base64Image={bicyclesPrimary?.images[index]} />
-              )}
-            </div>
-          ))}
-        </div>
+      <div className={styles.imagesBlock}>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div key={`img-block-${index}`} className={styles.inputBlock}>
+            <input
+              type="file"
+              name="img"
+              accept="image/*"
+              multiple
+              id={`file-input-${index}`}
+              className={styles.hiddenInput}
+              onChange={(e) => handleImageChange(e, index)}
+            />
+            {imagesData[index] ? (
+              <RenderImage base64Image={imagesData[index]} />
+            ) : (
+              <label
+                htmlFor={`file-input-${index}`}
+                className={styles.inputImg}
+              ></label>
+            )}
+          </div>
+        ))}
       </div>
       <div>
         <Button

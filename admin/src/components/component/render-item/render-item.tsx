@@ -7,7 +7,9 @@ import { toggleComplete } from 'lib/slices/checked-item-slice';
 import Loader from 'ui/loader/loader';
 import styles from './render-item.module.scss';
 
-const RenderItem: React.FC<BicycleDataProps> = ({ bicycleData }) => {
+const RenderItem: React.FC<Omit<BicycleDataProps, 'setBicycleData'>> = ({
+  bicycleData,
+}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isActive] = useState<boolean>(true);

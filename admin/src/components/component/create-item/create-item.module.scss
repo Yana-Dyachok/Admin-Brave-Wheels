@@ -1,4 +1,6 @@
 @use '../../../styles/colors.scss' as colors;
+@use '../../../styles/mixins.scss' as mixins;
+
 .input {
   padding: 1rem;
   font-size: 1.8rem;
@@ -52,4 +54,34 @@
 
 .inputRadio {
   @include inputBox(50%);
+}
+
+.imagesBlock {
+  display: flex;
+  gap: 2rem;
+}
+
+.inputBlock {
+  width: 10.8rem;
+  height: 10.8rem;
+  position: relative;
+  border: 0.1rem solid colors.$c-gray;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hiddenInput {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  z-index: -1;
+}
+
+.inputImg {
+  @include mixins.icon(2.4rem, 2.4rem);
+  &::before {
+    mask-image: url('../../../assets/icons/icon-add-photo.svg');
+  }
 }

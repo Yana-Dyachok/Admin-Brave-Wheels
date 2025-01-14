@@ -5,10 +5,12 @@ import { useSelector } from 'react-redux';
 import getBicycleAPI from 'app/api/get-api-all';
 import deleteBicycleAPI from 'app/api/delete-api';
 import Button from 'ui/button/button';
-import { BicycleSetDataProps } from 'types/interface';
+import { BicycleDataProps } from 'types/interface';
 import styles from './admin-menu.module.scss';
 
-const AdminMenu: React.FC<BicycleSetDataProps> = ({ setBicycleData }) => {
+const AdminMenu: React.FC<Omit<BicycleDataProps, 'bicycleData'>> = ({
+  setBicycleData,
+}) => {
   const checkedItems = useSelector(
     (state: RootState) => state.checked.checkedItem,
   );
