@@ -19,3 +19,11 @@ const componentToHex = (c: number) => {
 export const rgbToHex = (r: number, g: number, b: number) => {
   return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 };
+
+export const validateAndConvertColor = (color: string): string => {
+  const isValidHex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color);
+  if (isValidHex) return color;
+
+  const rgbColor = hexToRGB(color);
+  return rgbColor ? rgbToHex(rgbColor.r, rgbColor.g, rgbColor.b) : color;
+};

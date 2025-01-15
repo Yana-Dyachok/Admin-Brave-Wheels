@@ -1,4 +1,3 @@
-'use client';
 import { useRouter } from 'next/navigation';
 import { RootState } from 'lib/store';
 import { useSelector } from 'react-redux';

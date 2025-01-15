@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import ErrorBoundary from './error';
+import ErrorBoundary from '@/components/base/error-boundary/error-boundary';
 import Header from '@/components/base/header/header';
 import Footer from '@/components/base/footer/footer';
-import StoreProvider from './StoreProvider';
+import StoreProvider from '../lib/StoreProvider';
 import './globals.scss';
 
 // eslint-disable-next-line react-refresh/only-export-components

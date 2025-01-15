@@ -42,3 +42,22 @@ export const prepareBicycleData = (bicycle: IBicycle) => {
     images: updatedImages,
   };
 };
+
+export const processImages = async (
+  files: File[],
+  prevImgUrls: string[],
+): Promise<string[]> => {
+  const base64Images: string[] = [];
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const base64 =
+      file.size > 0
+        ? await convertToBase64(file)
+        : await convertUrlToBase64(prevImgUrls[i] || '');
+
+    if (base64 && base64.startsWith('data:image')) {
+      base64Images.push(base64);
+    }
+  }
+  return base64Images;
+};

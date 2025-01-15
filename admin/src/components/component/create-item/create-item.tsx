@@ -72,7 +72,6 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
   ) => {
     if (e.target.files && e.target.files[0]) {
       const file = await convertToBase64(e.target.files[0]);
-      console.log('file', file);
       setImagesData((prevImages) => {
         const updatedImages = [...prevImages];
         updatedImages[index] = file;

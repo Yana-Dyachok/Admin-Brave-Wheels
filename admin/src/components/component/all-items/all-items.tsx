@@ -1,6 +1,5 @@
-'use client';
 import { useEffect, Suspense } from 'react';
-import RenderItem from '../../component/render-item/render-item';
+import RenderItem from '../render-item/render-item';
 import getBicycleAPI from 'app/api/get-api-all';
 import { BicycleDataProps } from 'types/interface';
 import { mapBicycleData } from './get-data';

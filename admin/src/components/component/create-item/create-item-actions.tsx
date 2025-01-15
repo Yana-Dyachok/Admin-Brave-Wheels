@@ -1,35 +1,8 @@
 import { IBicycle } from 'types/interface';
 import { BicycleType, MaterialType, FrameType } from 'types/type';
-import { convertToBase64, convertUrlToBase64 } from 'utils/convert-to-base64';
-import { hexToRGB, rgbToHex } from 'utils/get-color-hex';
+import { processImages } from 'utils/convert-to-base64';
+import { validateAndConvertColor } from 'utils/get-color-hex';
 import getImagesByIdAPI from 'app/api/get-img-by-id';
-
-const processImages = async (
-  files: File[],
-  prevImgUrls: string[],
-): Promise<string[]> => {
-  const base64Images: string[] = [];
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    const base64 =
-      file.size > 0
-        ? await convertToBase64(file)
-        : await convertUrlToBase64(prevImgUrls[i] || '');
-
-    if (base64 && base64.startsWith('data:image')) {
-      base64Images.push(base64);
-    }
-  }
-  return base64Images;
-};
-
-const validateAndConvertColor = (color: string): string => {
-  const isValidHex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color);
-  if (isValidHex) return color;
-
-  const rgbColor = hexToRGB(color);
-  return rgbColor ? rgbToHex(rgbColor.r, rgbColor.g, rgbColor.b) : color;
-};
 
 const handleFormAction = async (
   formData: FormData,

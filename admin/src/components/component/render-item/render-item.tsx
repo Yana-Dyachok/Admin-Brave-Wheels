@@ -1,4 +1,3 @@
-'use client';
 import { useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
