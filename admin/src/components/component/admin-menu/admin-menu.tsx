@@ -3,7 +3,7 @@ import { RootState } from 'lib/store';
 import { useSelector } from 'react-redux';
 import getBicycleAPI from 'app/api/get-api-all';
 import deleteBicycleAPI from 'app/api/delete-api';
-import Button from 'ui/button/button';
+import Button from '@/components/ui/button/button';
 import { BicycleDataProps } from 'types/interface';
 import styles from './admin-menu.module.scss';
 
@@ -16,7 +16,7 @@ const AdminMenu: React.FC<Omit<BicycleDataProps, 'bicycleData'>> = ({
   const router = useRouter();
 
   const handleAddClick = () => {
-    router.push(`create-bike`);
+    router.push(`create`);
   };
 
   const deleteBicycle = async () => {

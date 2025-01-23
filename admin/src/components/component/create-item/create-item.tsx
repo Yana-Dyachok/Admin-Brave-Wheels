@@ -12,10 +12,11 @@ import {
   frameTypes,
 } from 'utils/const-form';
 import handleFormAction from './create-item-actions';
-import Button from 'ui/button/button';
+import Button from '@/components/ui/button/button';
 import createBicycleAPI from 'app/api/post-api';
 import { prepareBicycleData, convertToBase64 } from 'utils/convert-to-base64';
-import RenderImage from 'ui/render-img/render-img';
+import RenderImage from '@/components/ui/render-img/render-img';
+import { previewPath } from 'utils/get-preview-path';
 import styles from './create-item.module.scss';
 
 interface BicycleProps {
@@ -53,7 +54,8 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         }
         if (btnAction === 'prev') {
           dispatch(addItem(bicycle));
-          router.push(`${window.location.pathname}/preview`);
+          const currentPath = window.location.pathname;
+          router.push(previewPath(currentPath));
         }
         return 'succes';
       } else {

@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Social from 'ui/social/social';
-import Payments from 'ui/payments/payments';
-import Address from 'ui/address/address';
+import Social from '@/components/ui/social/social';
+import Payments from '@/components/ui/payments/payments';
+import Address from '@/components/ui/address/address';
 import styles from './footer.module.scss';
 
 const Footer = () => {

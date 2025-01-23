@@ -1,7 +1,7 @@
 import PreviewItem from '@/components/base/preview-item/preview-item';
 
-const PreviewEditItemPage = () => {
+const PreviewUpdateItemPage = () => {
   return <PreviewItem isEditMode={true} />;
 };
 
-export default PreviewEditItemPage;
+export default PreviewUpdateItemPage;

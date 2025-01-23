@@ -8,7 +8,7 @@ import createBicycleAPI from 'app/api/post-api';
 import updateBicycleAPI from 'app/api/put-api';
 import addImgAPIById from 'app/api/post-img-by-id';
 import { prepareBicycleData } from 'utils/convert-to-base64';
-import Button from 'ui/button/button';
+import Button from '@/components/ui/button/button';
 
 type PreviewItemProps = {
   isEditMode?: boolean;
@@ -33,7 +33,7 @@ const PreviewItem = ({ isEditMode = false }: PreviewItemProps) => {
   };
 
   const handleEditBicycle = () => {
-    router.push(isEditMode ? '/preview' : '/update-bike');
+    router.push(isEditMode ? `/update/${id}/edit` : '/create/edit');
   };
 
   return (
@@ -44,7 +44,7 @@ const PreviewItem = ({ isEditMode = false }: PreviewItemProps) => {
           Зберегти
         </Button>
         <Button btnType="button" onClick={handleEditBicycle}>
-          {isEditMode ? 'Повернутись' : 'Редагувати'}
+          Редагувати
         </Button>
       </div>
     </>

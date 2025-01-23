@@ -1,5 +1,5 @@
-@use '../../styles/colors.scss' as colors;
-@use '../../styles/mixins.scss' as mixins;
+@use '../../../styles/colors.scss' as colors;
+@use '../../../styles/mixins.scss' as mixins;
 
 .addressGroup {
   &:not(:last-child) {

@@ -21,15 +21,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ErrorBoundary>
-        <body>
+      <body>
+        <ErrorBoundary>
           <StoreProvider>
             <Header />
             {children}
             <Footer />
           </StoreProvider>
-        </body>
-      </ErrorBoundary>
+        </ErrorBoundary>
+      </body>
     </html>
   );
 }

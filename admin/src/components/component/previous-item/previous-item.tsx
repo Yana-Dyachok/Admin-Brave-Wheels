@@ -1,5 +1,5 @@
 import { IBicycle } from 'types/interface';
-import RenderImage from 'ui/render-img/render-img';
+import RenderImage from '@/components/ui/render-img/render-img';
 import styles from './previous-item.module.scss';
 
 interface Props {

@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { IBicycleData, BicycleDataProps } from 'types/interface';
 import { toggleComplete } from 'lib/slices/checked-item-slice';
-import Loader from 'ui/loader/loader';
+import Loader from '@/components/ui/loader/loader';
 import styles from './render-item.module.scss';
 
 const RenderItem: React.FC<Omit<BicycleDataProps, 'setBicycleData'>> = ({
@@ -20,7 +20,7 @@ const RenderItem: React.FC<Omit<BicycleDataProps, 'setBicycleData'>> = ({
   };
 
   const handleEditBicycle = (bicycle: IBicycleData) => {
-    router.push(`update-bike/${bicycle.id}`);
+    router.push(`update/${bicycle.id}`);
   };
 
   return (

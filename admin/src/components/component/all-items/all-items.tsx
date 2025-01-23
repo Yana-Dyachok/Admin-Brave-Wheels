@@ -3,7 +3,7 @@ import RenderItem from '../render-item/render-item';
 import getBicycleAPI from 'app/api/get-api-all';
 import { BicycleDataProps } from 'types/interface';
 import { mapBicycleData } from './get-data';
-import Loader from 'ui/loader/loader';
+import Loader from '@/components/ui/loader/loader';
 import styles from './all-items.module.scss';
 
 const AllItems: React.FC<BicycleDataProps> = ({

@@ -1,40 +1,17 @@
 'use client';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import getBicycleByIdAPI from 'app/api/get-api-by-id';
-import { IBicycleData } from 'types/interface';
-import Loader from 'ui/loader/loader';
+import { useSelector } from 'react-redux';
+import { RootState } from 'lib/store';
 import CreateItem from '@/components/component/create-item/create-item';
 
 const EditItem = () => {
   const params = useParams();
   const id = Array.isArray(params.item) ? params.item[0] : params.item;
-  const [bicyclesPrimary, setBicyclesPrimary] = useState<IBicycleData | null>(
-    null,
+  const bicyclesPrimary = useSelector(
+    (state: RootState) => state.created.createdItem,
   );
 
-  useEffect(() => {
-    if (id) {
-      (async () => {
-        try {
-          const data = await getBicycleByIdAPI(id);
-          setBicyclesPrimary(data);
-        } catch (error) {
-          console.log(`Failed to fetch data ${error}`);
-        }
-      })();
-    }
-  }, [id]);
-
-  return (
-    <>
-      {!bicyclesPrimary ? (
-        <Loader />
-      ) : (
-        <CreateItem bicyclesPrimary={bicyclesPrimary} />
-      )}
-    </>
-  );
+  return <CreateItem bicyclesPrimary={{ ...bicyclesPrimary, id: id || '' }} />;
 };
 
 export default EditItem;

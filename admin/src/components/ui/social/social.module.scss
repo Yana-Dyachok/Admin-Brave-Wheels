@@ -1,5 +1,5 @@
-@use '../../styles/mixins.scss' as mixins;
-@use '../../styles/colors.scss' as colors;
+@use '../../../styles/mixins.scss' as mixins;
+@use '../../../styles/colors.scss' as colors;
 
 .social {
   display: flex;
@@ -18,27 +18,27 @@
 .socialLinkFaceBook {
   @include mixins.icon(2.15rem, 2.15rem);
   &::before {
-    mask-image: url('../../assets/icons/icon-facebook.svg');
+    mask-image: url('../../../assets/icons/icon-facebook.svg');
   }
 }
 
 .socialLinkInstagram {
   @include mixins.icon(2.15rem, 2.15rem);
   &::before {
-    mask-image: url('../../assets/icons/icon-insta.svg');
+    mask-image: url('../../../assets/icons/icon-insta.svg');
   }
 }
 
 .socialLinkGoogle {
   @include mixins.icon(2.15rem, 2.15rem);
   &::before {
-    mask-image: url('../../assets/icons/icon-gmail.svg');
+    mask-image: url('../../../assets/icons/icon-gmail.svg');
   }
 }
 
 .socialLinkTelegram {
   @include mixins.icon(2.15rem, 2.15rem);
   &::before {
-    mask-image: url('../../assets/icons/icon-telegram.svg');
+    mask-image: url('../../../assets/icons/icon-telegram.svg');
   }
 }
