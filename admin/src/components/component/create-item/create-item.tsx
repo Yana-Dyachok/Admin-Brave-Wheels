@@ -46,6 +46,7 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
       const bicycle = await handleFormAction(
         formData,
         bicyclesPrimary.id || '',
+        bicyclesPrimary.images || [],
       );
       if (bicycle) {
         if (btnAction === 'add') {

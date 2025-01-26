@@ -7,9 +7,10 @@ import getImagesByIdAPI from 'app/api/get-img-by-id';
 const handleFormAction = async (
   formData: FormData,
   id: string,
+  images: string[],
 ): Promise<IBicycle> => {
   const files = formData.getAll('img') as File[];
-  const prevImgUrls = id ? await getImagesByIdAPI(id) : [];
+  const prevImgUrls = id ? await getImagesByIdAPI(id) : images;
   const base64Images = await processImages(files, prevImgUrls);
 
   const color = validateAndConvertColor(formData.get('color') as string);
