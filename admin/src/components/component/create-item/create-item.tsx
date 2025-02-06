@@ -16,7 +16,7 @@ import Button from '@/components/ui/button/button';
 import createBicycleAPI from 'app/api/post-api';
 import { prepareBicycleData, convertToBase64 } from 'utils/convert-to-base64';
 import RenderImage from '@/components/ui/render-img/render-img';
-import { previewPath } from 'utils/get-preview-path';
+//import { previewPath } from 'utils/get-preview-path';
 import styles from './create-item.module.scss';
 
 interface BicycleProps {
@@ -39,15 +39,16 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
   const router = useRouter();
 
   const handleCreateItem = async (
-    state: 'succes' | '',
+    state: 'success' | '',
     formData: FormData,
-  ): Promise<'succes' | ''> => {
+  ): Promise<'success' | ''> => {
     try {
       const bicycle = await handleFormAction(
         formData,
         bicyclesPrimary.id || '',
         bicyclesPrimary.images || [],
       );
+
       if (bicycle) {
         if (btnAction === 'add') {
           createBicycleAPI(prepareBicycleData(bicycle));
@@ -55,10 +56,13 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         }
         if (btnAction === 'prev') {
           dispatch(addItem(bicycle));
-          const currentPath = window.location.pathname;
-          router.push(previewPath(currentPath));
+          router.push(`${window.location.pathname}/preview`);
+          // if (typeof window !== 'undefined') {
+          //   const currentPath = window.location.pathname;
+          //   router.push(previewPath(currentPath));
+          // }
         }
-        return 'succes';
+        return 'success';
       } else {
         console.error('Failed to create bicycle: Invalid data');
         return '';
