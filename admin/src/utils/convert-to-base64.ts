@@ -15,11 +15,15 @@ export const convertToBase64 = (file: File): Promise<string> => {
 
 export const convertUrlToBase64 = async (url: string): Promise<string> => {
   try {
-    const response = await fetch(url);
+    const secureUrl = url.startsWith('http://')
+      ? url.replace('http://', 'https://')
+      : url;
+    const response = await fetch(secureUrl);
     if (!response.ok) {
       throw new Error(`Failed to fetch image: ${response.statusText}`);
     }
     const blob = await response.blob();
+
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onloadend = () => resolve(reader.result as string);
