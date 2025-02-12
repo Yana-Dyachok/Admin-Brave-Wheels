@@ -2,11 +2,11 @@ import { IBicycle } from 'types/interface';
 import RenderImage from '@/components/ui/render-img/render-img';
 import styles from './previous-item.module.scss';
 
-interface Props {
+interface BicycleProps {
   bicycleData: IBicycle;
 }
 
-export const PreviousItem: React.FC<Props> = ({ bicycleData }) => {
+export const PreviousItem: React.FC<BicycleProps> = ({ bicycleData }) => {
   return (
     <div key={bicycleData.name} className={styles.bicycleItem}>
       <h2>{bicycleData.name}</h2>

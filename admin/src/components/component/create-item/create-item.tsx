@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useActionState, useEffect } from 'react';
+import React, { useState, useActionState, useEffect /*useRef*/ } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { addItem, deleteItem } from 'lib/slices/create-item-slice';
@@ -16,18 +16,18 @@ import Button from '@/components/ui/button/button';
 import createBicycleAPI from 'app/api/post-api';
 import { prepareBicycleData, convertToBase64 } from 'utils/convert-to-base64';
 import RenderImage from '@/components/ui/render-img/render-img';
-//import { previewPath } from 'utils/get-preview-path';
+import { previewPath } from 'utils/get-preview-path';
 import styles from './create-item.module.scss';
 
-interface BicycleProps {
+interface BicycleDataProps {
   bicyclesPrimary: IBicycleData;
 }
 
-const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
+const CreateItem: React.FC<BicycleDataProps> = ({ bicyclesPrimary }) => {
   const [imagesData, setImagesData] = useState<string[]>(
     bicyclesPrimary.images.slice() || [],
   );
-
+  //const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   useEffect(() => {
     if (bicyclesPrimary.images) {
       setImagesData(bicyclesPrimary.images);
@@ -56,11 +56,11 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         }
         if (btnAction === 'prev') {
           dispatch(addItem(bicycle));
-          router.push(`${window.location.pathname}/preview`);
-          // if (typeof window !== 'undefined') {
-          //   const currentPath = window.location.pathname;
-          //   router.push(previewPath(currentPath));
-          // }
+          //router.push(`${window.location.pathname}/preview`);
+          if (typeof window !== 'undefined') {
+            const currentPath = window.location.pathname;
+            router.push(previewPath(currentPath));
+          }
         }
         return 'success';
       } else {
@@ -85,6 +85,17 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         return updatedImages;
       });
     }
+  };
+
+  const deleteImage = (index: number) => {
+    setImagesData((prevImages) => {
+      const updatedImages = [...prevImages];
+      updatedImages[index] = '';
+      return updatedImages;
+    });
+    // if (inputRefs.current[index]) {
+    //   inputRefs.current[index]!.value = '';
+    // }
   };
 
   const [message, formAction, isPending] = useActionState(handleCreateItem, '');
@@ -224,6 +235,7 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
         {Array.from({ length: 6 }).map((_, index) => (
           <div key={`img-block-${index}`} className={styles.inputBlock}>
             <input
+              // ref={(el) => { inputRefs.current[index] = el; }}
               type="file"
               name="img"
               accept="image/*"
@@ -233,7 +245,13 @@ const CreateItem: React.FC<BicycleProps> = ({ bicyclesPrimary }) => {
               onChange={(e) => handleImageChange(e, index)}
             />
             {imagesData[index] ? (
-              <RenderImage base64Image={imagesData[index]} />
+              <>
+                <RenderImage base64Image={imagesData[index]} />
+                <button
+                  className={styles.crossButton}
+                  onClick={() => deleteImage(index)}
+                ></button>
+              </>
             ) : (
               <label
                 htmlFor={`file-input-${index}`}
