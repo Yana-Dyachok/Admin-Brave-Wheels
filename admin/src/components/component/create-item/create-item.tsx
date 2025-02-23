@@ -4,7 +4,7 @@ import React, { useState, useActionState, useEffect /*useRef*/ } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { addItem, deleteItem } from 'lib/slices/create-item-slice';
-import { IBicycleData } from 'types/interface';
+import { BicycleDataProps } from 'types/interface';
 import {
   bicycleTypes,
   wheelSizes,
@@ -18,10 +18,6 @@ import { prepareBicycleData, convertToBase64 } from 'utils/convert-to-base64';
 import RenderImage from '@/components/ui/render-img/render-img';
 import { previewPath } from 'utils/get-preview-path';
 import styles from './create-item.module.scss';
-
-interface BicycleDataProps {
-  bicyclesPrimary: IBicycleData;
-}
 
 const CreateItem: React.FC<BicycleDataProps> = ({ bicyclesPrimary }) => {
   const [imagesData, setImagesData] = useState<string[]>(

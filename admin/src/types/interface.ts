@@ -27,7 +27,11 @@ export interface IChecked {
   checked: boolean;
 }
 
-export interface BicycleDataProps {
+export interface BicyclesDataProps {
   setBicycleData: React.Dispatch<React.SetStateAction<IBicycleData[]>>;
   bicycleData: IBicycleData[];
+}
+
+export interface BicycleDataProps {
+  bicyclesPrimary: IBicycleData;
 }

@@ -1,12 +1,12 @@
 import { useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { IBicycleData, BicycleDataProps } from 'types/interface';
+import { IBicycleData, BicyclesDataProps } from 'types/interface';
 import { toggleComplete } from 'lib/slices/checked-item-slice';
 import Loader from '@/components/ui/loader/loader';
 import styles from './render-item.module.scss';
 
-const RenderItem: React.FC<Omit<BicycleDataProps, 'setBicycleData'>> = ({
+const RenderItem: React.FC<Omit<BicyclesDataProps, 'setBicycleData'>> = ({
   bicycleData,
 }) => {
   const router = useRouter();
