@@ -1,6 +1,7 @@
+import { BASE_URL } from '../../../next.config';
 const deleteBicycleAPI = async (id: string): Promise<void> => {
   try {
-    await fetch(`https://bicycleapi.onrender.com/api/bicycle/delete/${id}`, {
+    await fetch(`${BASE_URL}/delete/${id}`, {
       method: 'DELETE',
     });
   } catch (error) {

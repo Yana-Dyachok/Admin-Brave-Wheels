@@ -1,4 +1,8 @@
-module.exports = {
+import type { NextConfig } from 'next';
+
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
@@ -9,3 +13,5 @@ module.exports = {
     ],
   },
 };
+
+export default nextConfig;
