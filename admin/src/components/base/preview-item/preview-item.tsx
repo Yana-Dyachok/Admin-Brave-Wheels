@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from 'lib/store';
 import PreviousItem from '@/components/component/previous-item/previous-item';
@@ -10,21 +10,15 @@ import addImgAPIById from 'app/api/post-img-by-id';
 import { prepareBicycleData } from 'utils/convert-to-base64';
 import Button from '@/components/ui/button/button';
 
-type PreviewItemProps = {
-  isEditMode?: boolean;
-};
-
-const PreviewItem = ({ isEditMode = false }: PreviewItemProps) => {
+const PreviewItem = ({ id }: { id: string }) => {
   const router = useRouter();
-  const params = useParams();
-  const id = Array.isArray(params?.item) ? params.item[0] : params?.item;
   const createdItems = useSelector(
     (state: RootState) => state.created.createdItem,
   );
 
   const handleSaveItem = () => {
     const preparedData = prepareBicycleData(createdItems);
-    if (isEditMode && id) {
+    if (id) {
       updateBicycleAPI(preparedData, id);
       addImgAPIById(preparedData.images, id);
     } else {
@@ -33,7 +27,7 @@ const PreviewItem = ({ isEditMode = false }: PreviewItemProps) => {
   };
 
   const handleEditBicycle = () => {
-    router.push(isEditMode ? `/update/${id}/edit` : '/create/edit');
+    router.push(id ? `/update/${id}/edit` : '/create/edit');
   };
 
   return (
