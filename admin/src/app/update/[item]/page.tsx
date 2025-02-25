@@ -5,12 +5,17 @@ import getBicycleByIdAPI from 'app/api/get-api-by-id';
 // eslint-disable-next-line react-refresh/only-export-components
 export { generateStaticParams };
 
-const UpdateItemPage = async ({ params }: { params: { item: string } }) => {
-  if (!params?.item) {
+const UpdateItemPage = async ({
+  params,
+}: {
+  params: Promise<{ item: string }>;
+}) => {
+  const resolvedParams = await params;
+
+  if (!resolvedParams?.item) {
     return <div>Error: Missing params</div>;
   }
-  const item = await params.item;
-  const bicyclesPrimary = await getBicycleByIdAPI(item);
+  const bicyclesPrimary = await getBicycleByIdAPI(resolvedParams.item);
   return <UpdateItem bicyclesPrimary={bicyclesPrimary} />;
 };
 
