@@ -9,7 +9,8 @@ const UpdateItemPage = async ({ params }: { params: { item: string } }) => {
   if (!params?.item) {
     return <div>Error: Missing params</div>;
   }
-  const bicyclesPrimary = await getBicycleByIdAPI(params.item);
+  const item = await params.item;
+  const bicyclesPrimary = await getBicycleByIdAPI(item);
   return <UpdateItem bicyclesPrimary={bicyclesPrimary} />;
 };
 

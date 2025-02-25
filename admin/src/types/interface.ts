@@ -35,3 +35,7 @@ export interface BicyclesDataProps {
 export interface BicycleDataProps {
   bicyclesPrimary: IBicycleData;
 }
+
+export interface BicycleProps {
+  bicycleData: IBicycle;
+}

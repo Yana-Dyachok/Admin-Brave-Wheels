@@ -1,7 +1,4 @@
 import PreviewItem from '@/components/base/preview-item/preview-item';
-import { generateStaticParams } from '../generate-static-parameters';
-// eslint-disable-next-line react-refresh/only-export-components
-export { generateStaticParams };
 
 const PreviewUpdateItemPage = async ({
   params,
@@ -11,7 +8,8 @@ const PreviewUpdateItemPage = async ({
   if (!params?.item) {
     return <div>Error: Missing params</div>;
   }
-  return <PreviewItem id={params.item} />;
+  const item = await params.item;
+  return <PreviewItem id={item} />;
 };
 
 export default PreviewUpdateItemPage;

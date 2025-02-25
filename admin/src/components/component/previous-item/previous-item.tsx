@@ -1,12 +1,13 @@
-import { IBicycle } from 'types/interface';
+'use client';
+import { useSelector } from 'react-redux';
+import { RootState } from 'lib/store';
 import RenderImage from '@/components/ui/render-img/render-img';
 import styles from './previous-item.module.scss';
 
-interface BicycleProps {
-  bicycleData: IBicycle;
-}
-
-export const PreviousItem: React.FC<BicycleProps> = ({ bicycleData }) => {
+export const PreviousItem = () => {
+  const bicycleData = useSelector(
+    (state: RootState) => state.created.createdItem,
+  );
   return (
     <div key={bicycleData.name} className={styles.bicycleItem}>
       <h2>{bicycleData.name}</h2>
