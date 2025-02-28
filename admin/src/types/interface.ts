@@ -39,3 +39,13 @@ export interface BicycleDataProps {
 export interface BicycleProps {
   bicycleData: IBicycle;
 }
+
+export interface IAuthData {
+  email: string;
+  password: string;
+}
+
+export interface IAuthError {
+  emailError: string;
+  passwordError: string;
+}

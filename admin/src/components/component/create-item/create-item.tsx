@@ -16,7 +16,7 @@ import Button from '@/components/ui/button/button';
 import createBicycleAPI from 'app/api/post-api';
 import { prepareBicycleData, convertToBase64 } from 'utils/convert-to-base64';
 import RenderImage from '@/components/ui/render-img/render-img';
-import { previewPath } from 'utils/get-preview-path';
+import { getPreviewPath } from 'utils/get-preview-path';
 import styles from './create-item.module.scss';
 
 const CreateItem: React.FC<BicycleDataProps> = ({ bicyclesPrimary }) => {
@@ -55,7 +55,7 @@ const CreateItem: React.FC<BicycleDataProps> = ({ bicyclesPrimary }) => {
           //router.push(`${window.location.pathname}/preview`);
           if (typeof window !== 'undefined') {
             const currentPath = window.location.pathname;
-            router.push(previewPath(currentPath));
+            router.push(getPreviewPath(currentPath));
           }
         }
         return 'success';
