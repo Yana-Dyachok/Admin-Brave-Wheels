@@ -30,9 +30,8 @@ const passwordValidationSchema = (): yup.StringSchema<string> =>
     .max(255, '*password cannot be longer than 255 characters')
     .defined();
 
-export const schema: yup.ObjectSchema<{ email: string; password: string }> = yup
-  .object()
-  .shape({
+export const schemaAuth: yup.ObjectSchema<{ email: string; password: string }> =
+  yup.object().shape({
     email: emailValidationSchema(),
     password: passwordValidationSchema(),
   });

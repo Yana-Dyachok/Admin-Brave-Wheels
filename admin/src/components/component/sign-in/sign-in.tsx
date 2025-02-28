@@ -2,50 +2,48 @@
 import { useActionState } from 'react';
 import { useRouter } from 'next/navigation';
 import Form from 'next/form';
-import { auth } from '../../../firebase/firebase';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { auth } from '../../../firebase/firebase';
 import Button from '@/components/ui/button/button';
 import onSubmitAction from '../../../utils/on-submit-action';
 import getFirebaseErrorMessage from 'utils/firebase-errors';
 
 const SignIn = () => {
-  const router = useRouter();
-  const [signInUserWithEmailAndPassword, user, loading, error] =
+  const route = useRouter();
+  const [signInWithEmailAndPassword, user, isLoading, errors] =
     useSignInWithEmailAndPassword(auth);
-
-  const submitSignInForm = async (
-    state: 'success' | '',
-    formdata: FormData,
-  ): Promise<'success' | ''> => {
+  const onSubmit = async (state: 'success' | '', formData: FormData) => {
     try {
-      const userData = await onSubmitAction(formdata);
-      await signInUserWithEmailAndPassword(userData.email, userData.password);
-      if (user) router.push('./');
+      const data = await onSubmitAction(formData);
+      const response = await signInWithEmailAndPassword(
+        data.email,
+        data.password,
+      );
+      if (response?.user) route.push('./');
       return 'success';
-    } catch (err) {
-      console.log(`Failed to auth, ${err}`);
+    } catch (error) {
+      console.log(`Failed to auth, ${error}`);
       return '';
     }
   };
-
-  const [message, formActive] = useActionState(submitSignInForm, '');
-
+  const [message, formAction] = useActionState(onSubmit, '');
   return (
-    <Form action={formActive}>
-      <label htmlFor="email">Email address:</label>
+    <Form action={formAction}>
+      <h2>Sign In</h2>
+      <label htmlFor="email">Enter email:</label>
       <input
         type="email"
+        required
         id="email"
         name="email"
-        required
         placeholder="example@gmail.com"
       />
-      <label htmlFor="password">Password:</label>
-      <input type="password" id="password" name="password" required />
-      <p className="error">{getFirebaseErrorMessage(error?.code || '')}</p>
-      <p hidden>{message}</p>
-      <Button btnType="submit" disabled={loading}>
-        {loading ? 'Sending...' : 'Submit'}
+      <label htmlFor="password">Enter password:</label>
+      <input type="password" required id="password" name="password" />
+      <p>{getFirebaseErrorMessage(errors?.code || '')}</p>
+      <p hidden>{`${message} ${user}`}</p>
+      <Button btnType="submit" disabled={isLoading}>
+        {isLoading ? 'Sending...' : 'Submit'}
       </Button>
     </Form>
   );
