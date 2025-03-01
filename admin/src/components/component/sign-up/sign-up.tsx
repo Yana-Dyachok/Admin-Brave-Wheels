@@ -9,6 +9,9 @@ import { auth } from '../../../firebase/firebase';
 import Button from '@/components/ui/button/button';
 import { IAuthData } from 'types/interface';
 import { schemaAuth } from 'utils/validation-schemas';
+import InputItem from '@/components/ui/input-item/input-item';
+import InputPassword from '@/components/ui/input-password/input-password';
+
 const SignUp = () => {
   const [createUserWithEmail] = useCreateUserWithEmailAndPassword(auth);
   const [sendEmailVerification] = useSendEmailVerification(auth);
@@ -28,24 +31,14 @@ const SignUp = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Sign up</h2>
-      <label htmlFor="email">Enter email:</label>
-      <input
-        type="email"
-        id="email"
-        {...register('email')}
-        required
+      <InputItem
+        register={register}
+        error={errors.email?.message}
+        name="email"
+        label="Enter email:"
         placeholder="example@gmail.com"
       />
-      <p>{errors.email?.message}</p>
-      <label htmlFor="password">Enter password:</label>
-      <input
-        type="password"
-        id="password"
-        {...register('password')}
-        required
-        placeholder="example@gmail.com"
-      />
-      <p>{errors.password?.message}</p>
+      <InputPassword register={register} error={errors.password?.message} />
       <Button btnType="submit">Submit</Button>
     </form>
   );
